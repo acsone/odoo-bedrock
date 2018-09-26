@@ -1,0 +1,30 @@
+[template]
+src = "odoo.cfg.tmpl"
+dest = "/etc/odoo.cfg"
+keys = [
+  "/odoo/addons/path",
+  "/odoo/db/host",
+  "/odoo/db/name",
+  "/odoo/db/user",
+  "/odoo/db/password",
+  "/odoo/db/name",
+  "/odoo/list/db",
+  "/odoo/admin/passwd",
+  "/odoo/db/maxconn",
+  "/odoo/limit/memory/soft",
+  "/odoo/limit/memory/hard",
+  "/odoo/limit/request",
+  "/odoo/limit/time/cpu",
+  "/odoo/limit/time/real",
+  "/odoo/log/handler",
+  "/odoo/log/level",
+  "/odoo/max/cron/threads",
+  "/odoo/workers",
+  "/odoo/logfile",
+  "/odoo/log/db",
+  "/odoo/syslog",
+  "/odoo/running/env",
+  "/odoo/without/demo",
+  "/odoo/server/wide/modules",
+  "/odoo/unaccent",
+]

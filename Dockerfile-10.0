@@ -1,0 +1,30 @@
+FROM ubuntu:18.04
+MAINTAINER ACSONE SA/NV
+
+COPY ./install /tmp/install
+RUN set -x \
+  && /tmp/install/pre-install.sh \
+  && /tmp/install/tools.sh \
+  && /tmp/install/confd.sh \
+  && /tmp/install/gosu.sh \
+  && /tmp/install/python2.sh \
+  && /tmp/install/wkhtml_12_4.sh \
+  && /tmp/install/odoo-deps-10.0.sh \
+  && /tmp/install/post-install-clean.sh \
+  && rm -r /tmp/install
+
+ENV \
+  LANG=C.UTF-8 \
+  LC_ALL=C.UTF-8 \
+  ODOO_RC=/etc/odoo.cfg \
+  ODOO_SERIES=10.0
+
+COPY ./10.0/confd /etc/confd
+
+VOLUME ["/data/odoo"]
+
+EXPOSE 8069 8072
+
+COPY ./bin/entrypoint.sh /usr/local/bin/entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+CMD ["odoo"]
