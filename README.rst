@@ -16,7 +16,8 @@ Features
 * python
 * confd
 * gosu
-* nano, less, curl
+* nano, less
+* curl (TBC: to be removed, it's there only for installation
 * Odoo external dependencies (wkhtmltopdf, lessc, etc),
   except python libraries which you need to provide yourself.
 
@@ -32,7 +33,8 @@ TBC
 Credits
 =======
 
-Some inspiration has been drawn from camptocamp's odoo-project image.
+Some inspiration has been drawn from `camptocamp/odoo-project <https://github.com/camptocamp/docker-odoo-project>`_
+in particular entrypoint.sh and the travis config.
 
 Contributors
 ~~~~~~~~~~~~
