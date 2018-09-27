@@ -2,6 +2,8 @@
 Odoo Bedrock container image
 ============================
 
+/!\ this is alpha stuff, use at your own risk /!\
+
 This image is meant as a greatest common denominator foundation to run Odoo.
 
 It is a BYOO (bring-your-own-odoo) image, which means you need
