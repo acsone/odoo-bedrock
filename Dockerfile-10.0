@@ -21,7 +21,7 @@ ENV \
 
 COPY ./10.0/confd /etc/confd
 
-# VOLUME ["/data/odoo"]
+VOLUME ["/data/odoo"]
 
 EXPOSE 8069 8072
 
