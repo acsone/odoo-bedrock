@@ -36,7 +36,7 @@ Credits
 =======
 
 Some inspiration has been drawn from `camptocamp/odoo-project <https://github.com/camptocamp/docker-odoo-project>`_
-in particular entrypoint.sh and the travis config.
+in particular the odoo config file templates, entrypoint.sh and the travis config.
 
 Contributors
 ~~~~~~~~~~~~
