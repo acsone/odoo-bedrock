@@ -1,0 +1,30 @@
+[template]
+src = "odoo.cfg.tmpl"
+dest = "/etc/odoo.cfg"
+keys = [
+  "/addons/path",
+  "/db/host",
+  "/db/name",
+  "/db/user",
+  "/db/password",
+  "/db/name",
+  "/list/db",
+  "/admin/passwd",
+  "/db/maxconn",
+  "/limit/memory/soft",
+  "/limit/memory/hard",
+  "/limit/request",
+  "/limit/time/cpu",
+  "/limit/time/real",
+  "/log/handler",
+  "/log/level",
+  "/max/cron/threads",
+  "/workers",
+  "/logfile",
+  "/log/db",
+  "/syslog",
+  "/running/env",
+  "/without/demo",
+  "/server/wide/modules",
+  "/unaccent",
+]
