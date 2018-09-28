@@ -83,7 +83,7 @@ using a bind mounted volume during build::
 Credits
 =======
 
-Some inspiration has been drawn from `camptocamp/odoo-project <https://github.com/camptocamp/docker-odoo-project>`_
+Inspiration has been drawn from `camptocamp/odoo-project <https://github.com/camptocamp/docker-odoo-project>`_
 in particular the odoo config file templates, entrypoint.sh and the travis config.
 
 Contributors
