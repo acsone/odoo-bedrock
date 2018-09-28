@@ -28,16 +28,6 @@ push:
 	docker push $(IMAGE)-$(TAG)
 
 
-.PHONY: tag_latest_main
-tag_latest_main:
-	docker tag $(IMAGE_LATEST) $(NAME):latest
-
-
-.PHONY: push_latest_main
-push_latest_main:
-	docker push $(NAME):latest
-
-
 .PHONY: test
 test:
 	bash test.sh
