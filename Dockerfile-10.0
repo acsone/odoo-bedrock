@@ -14,10 +14,11 @@ RUN set -x \
   && rm -r /tmp/install
 
 ENV \
+  ODOO_VERSION=10.0 \
   LANG=C.UTF-8 \
   LC_ALL=C.UTF-8 \
-  ODOO_RC=/etc/odoo.cfg \
-  ODOO_SERIES=10.0
+  OPENERP_SERVER=/etc/odoo.cfg \
+  PATH=/odoo/bin:$PATH
 
 COPY ./10.0/confd /etc/confd
 

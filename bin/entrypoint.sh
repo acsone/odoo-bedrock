@@ -24,8 +24,6 @@ if [ ! "$(stat -c '%U' /data/odoo)" = "odoo" ]; then
   chown -R odoo: /data/odoo
 fi
 
-export PATH=$PATH:/odoo/bin
-
 if [ -z "${NOGOSU}" ] ; then
 
   START_ENTRYPOINT_DIR=/odoo/start-entrypoint.d
