@@ -85,7 +85,7 @@ such a Dockerfile::
 
 This method assumes the wheel files, including Odoo itself,
 have been built outside the container before hand using, for example,
-`pip wheel -r requirements.txt --wheel-dir=release/`.
+``pip wheel -r requirements.txt --wheel-dir=release/``.
 
 Notice there is no COPY statement. That's because you can use
 `buildah <https://github.com/containers/buildah>`_ to create an OCI compliant image,
