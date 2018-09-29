@@ -10,7 +10,7 @@ echo "Starting with UID : $USER_ID"
 id -u odoo &> /dev/null || useradd --shell /bin/bash -u $USER_ID -o -c "" -m odoo
 
 # TODO check if this way of running confd is best practice
-confd -onetime -backend ${CONFD_BACKEND:-env} ${CONFD_OPTS:-}
+confd -log-level=warn -onetime -backend ${CONFD_BACKEND:-env} ${CONFD_OPTS:-}
 
 # TODO this could (should?) be sourced from file(s) under confd control
 export PGHOST=${ODOO_DB_HOST}
