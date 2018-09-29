@@ -6,7 +6,6 @@ set -Eeuo pipefail
 # If no user id is set, we use 999
 USER_ID=${LOCAL_USER_ID:-999}
 
-echo "Starting with UID : $USER_ID"
 id -u odoo &> /dev/null || useradd --shell /bin/bash -u $USER_ID -o -c "" -m odoo
 
 confd -log-level=warn -onetime -backend ${CONFD_BACKEND:-env} ${CONFD_OPTS:-}
@@ -30,6 +29,7 @@ if [ -z "${NOGOSU:-}" ] ; then
     run-parts --verbose "$START_ENTRYPOINT_DIR"
   fi
 
+  echo "Starting with UID : $USER_ID"
   exec gosu odoo "$@"
 else
   exec "$@"
