@@ -4,7 +4,8 @@ MAINTAINER ACSONE SA/NV
 ENV \
   ODOO_VERSION=8.0 \
   LANG=C.UTF-8 \
-  LC_ALL=C.UTF-8
+  LC_ALL=C.UTF-8 \
+  DEBIAN_FRONTEND=noninteractive
 
 COPY ./install /tmp/install
 RUN set -x \
