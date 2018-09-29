@@ -46,17 +46,19 @@ in ``myaddons``. You can create the following Dockerfile::
   FROM acsone/odoo-bedrock:10.0-latest
 
   COPY ./src/odoo /odoo/src/odoo
-  RUN python -m virtualenv /odoo \
-    && /odoo/bin/pip install --no-cache-dir \
+  RUN \
+    pip install --no-cache-dir \
       -r /odoo/src/odoo/requirements.txt \
       -f https://wheelhouse.acsone.eu/manylinux1 \
-    && /odoo/bin/pip install -e /odoo/src/odoo
+    && pip install -e /odoo/src/odoo
 
   COPY ./addons /odoo/addons
 
   ENV ADDONS_PATH=/odoo/src/odoo/addons,/odoo/src/odoo/odoo/addons,/odoo/addons
 
-Note the use of ``-f https://wheelhouse.acsone.eu/manylinux1`` to find binary wheels that work without additional system dependencies. This is not mandadatory but helps having an image without build tools.
+Note the use of ``-f https://wheelhouse.acsone.eu/manylinux1`` to
+find binary wheels that work without additional system dependencies.
+This is not mandadatory but helps having an image without build tools.
 
 Installing from pre-built manylinux wheels
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -67,8 +69,7 @@ such a Dockerfile::
 
   FROM acsone/odoo-bedrock:10.0-latest
 
-  RUN python -m virtualenv /odoo \
-    && /odoo/bin/pip install --no-index --no-deps /tmp/release/*.whl
+  RUN pip install --no-index --no-deps /tmp/release/*.whl
 
 This method assumes the wheel files, including Odoo itself,
 have been built outside the container before hand using, for example,
