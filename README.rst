@@ -20,7 +20,7 @@ Features
 * `confd <https://github.com/kelseyhightower/confd>`_ to generate
   the Odoo configuration file from environment variables or any other source
 * `gosu <https://github.com/tianon/gosu>`_ to step down from root in the entrypoint
-* nano, less, for some rudimentary confort when the time comes to investigate
+* ``nano``, ``less``, for some rudimentary comfort when the time comes to investigate
   the container on the terminal
 * Odoo external dependencies, depending on the version (wkhtmltopdf, lessc, etc)
 
@@ -36,6 +36,10 @@ Configuration
 =============
 
 TBC
+
+Required environment variables:
+
+* ``DB_HOST``, ``DB_USER``, ``DB_PASSWORD``, ``DB_NAME``
 
 Examples
 ========
