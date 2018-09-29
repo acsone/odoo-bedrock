@@ -9,19 +9,24 @@ This image is meant as a greatest common denominator foundation to run Odoo.
 It is a BYOO (bring-your-own-odoo) image, which means you need
 to create a derived image which adds your Odoo and addons.
 This image does not mandate any particular installation method 
-for Odoo and addons.
+for Odoo and addons, nor does it impose any constraint on your project
+structure.
 
 Features
 ========
 
-* Ubuntu 18.04 minimal
-* python
-* confd
-* gosu
-* nano, less
-* curl (TBC: to be removed, it's there only for installation
-* Odoo external dependencies (wkhtmltopdf, lessc, etc),
-  except python libraries which you need to provide yourself.
+* Ubuntu 18.04 minimal, because it's small and has recent pythons
+* python, obviously
+* `confd <https://github.com/kelseyhightower/confd>`_ to generate
+  the Odoo configuration file from environment variables or any other source
+* `gosu <https://github.com/tianon/gosu>`_ to step down from root in the entrypoint
+* nano, less, for some rudimentary confort when the time comes to investigate
+  the container on the terminal
+* Odoo external dependencies, depending on the version (wkhtmltopdf, lessc, etc)
+
+Note **Odoo's python dependencies are not included**: you need to pip install
+Odoo's requirements.txt. This is not done in the base image as different projects
+may require different versions of these libraries.
 
 The entrypoint does the following:
 
@@ -35,7 +40,8 @@ TBC
 Examples
 ========
 
-These are typical Dockerfiles derived from this image.
+These are typical Dockerfiles derived from this image, provided here
+for inspiration.
 
 Installing addons and Odoo from source
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -85,7 +91,8 @@ Credits
 =======
 
 Inspiration has been drawn from `camptocamp/odoo-project <https://github.com/camptocamp/docker-odoo-project>`_
-in particular the odoo config file templates, entrypoint.sh and the travis config.
+in particular many environment variables, the odoo config file templates, entrypoint.sh and the travis config.
+This is by design, in other to facilitate possible future convergence.
 
 Contributors
 ~~~~~~~~~~~~
