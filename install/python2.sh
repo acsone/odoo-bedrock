@@ -1,4 +1,4 @@
 #!/bin/bash
 set -Eeuxo pipefail
 
-apt-get install -y --no-install-recommends python-virtualenv python-pip
+apt-get install -y --no-install-recommends python-virtualenv
