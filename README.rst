@@ -12,6 +12,8 @@ This image does not mandate any particular installation method
 for Odoo and addons, nor does it impose any constraint on your project
 structure.
 
+.. contents::
+
 Features
 ========
 
