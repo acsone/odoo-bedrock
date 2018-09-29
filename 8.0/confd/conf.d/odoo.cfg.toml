@@ -4,6 +4,7 @@ dest = "/etc/odoo.cfg"
 keys = [
   "/addons/path",
   "/db/host",
+  "/db/port",
   "/db/name",
   "/db/user",
   "/db/password",
