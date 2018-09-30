@@ -22,13 +22,15 @@ if [ ! "$(stat -c '%U' /data/odoo)" = "odoo" ]; then
   chown -R odoo: /data/odoo
 fi
 
-if [ -z "${NOGOSU:-}" ] ; then
-
+BASE_CMD=$(basename $1)
+if [ "$BASE_CMD" = "odoo" ] || [ "$BASE_CMD" = "odoo.py" ] || [ "$BASE_CMD" = "odoo-bin" ] || [ "$BASE_CMD" = "openerp-server" ] ; then
   START_ENTRYPOINT_DIR=/odoo/start-entrypoint.d
   if [ -d "$START_ENTRYPOINT_DIR" ]; then
     run-parts --verbose "$START_ENTRYPOINT_DIR"
   fi
+fi
 
+if [ -z "${NOGOSU:-}" ] ; then
   echo "Starting with UID : $USER_ID"
   exec gosu odoo "$@"
 else
