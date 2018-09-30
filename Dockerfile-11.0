@@ -16,7 +16,6 @@ RUN set -x \
   && /tmp/install/python3.sh \
   && /tmp/install/lessc.sh \
   && /tmp/install/wkhtml_12_4.sh \
-  && /tmp/install/odoo-deps-${ODOO_VERSION}.sh \
   && /tmp/install/post-install-clean.sh \
   && rm -r /tmp/install
 
