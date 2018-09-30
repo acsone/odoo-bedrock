@@ -24,11 +24,15 @@ Features
 * `gosu <https://github.com/tianon/gosu>`_ to step down from root in the entrypoint
 * ``nano``, ``less``, for some rudimentary comfort when the time comes to investigate
   the container on the terminal
-* Odoo external dependencies, depending on the version (wkhtmltopdf, lessc, etc)
+* Odoo mandatory external dependencies (wkhtmltopdf, lessc)
 
 Note **Odoo's python dependencies are not included**: you need to pip install
 Odoo's requirements.txt. This is not done in the base image as different projects
 may require different versions of these libraries.
+
+Other dependencies are also notably absent (graphviz, antiword, poppler-utils),
+these being unused in the latest Odoo version and infrequently used in older
+versions.
 
 The entrypoint does the following:
 
