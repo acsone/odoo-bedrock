@@ -9,3 +9,7 @@ cp --no-dereference --preserve=link wkhtmltox/lib/* /usr/local/lib/
 cp wkhtmltox/bin/wkhtmltopdf /usr/local/bin/wkhtmltopdf
 rm -rf wkhtmltox wkhtmltox.tar.xz
 apt-get purge -y --auto-remove xz-utils
+
+apt-get install -y --no-install-recommends \
+  xfonts-75dpi \
+  xfonts-base
