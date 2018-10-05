@@ -3,7 +3,7 @@
 set -e
 
 if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
-  docker login --username="$DOCKER_USERNAME" --password="$DOCKER_PASSWORD"
+  docker login --username="$REGISTRY_USERNAME" --password="$REGISTRY_PASSWORD" $REGISTRY
 
   if [ "$TRAVIS_BRANCH" == "master" ]; then
     make VERSION=$VERSION TAG=latest tag push
