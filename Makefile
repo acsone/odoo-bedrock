@@ -1,8 +1,12 @@
 BASENAME=odoo-bedrock
-NAME=acsone/$(BASENAME)
+NAME=$(REGISTRY)/acsone/$(BASENAME)
 
 ifndef VERSION
 $(error VERSION is not set)
+endif
+
+ifndef REGISTRY
+$(error REGISTRY is not set)
 endif
 
 IMAGE=$(NAME):$(VERSION)
