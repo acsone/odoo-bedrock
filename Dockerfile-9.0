@@ -3,6 +3,7 @@ MAINTAINER ACSONE SA/NV
 
 ENV \
   ODOO_VERSION=9.0 \
+  ODOO_BIN=openerp-server \
   LANG=C.UTF-8 \
   LC_ALL=C.UTF-8 \
   DEBIAN_FRONTEND=noninteractive
@@ -35,4 +36,4 @@ EXPOSE 8069 8072
 
 COPY ./bin/entrypoint.sh /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-CMD ["openerp-server"]
+CMD $ODOO_BIN
