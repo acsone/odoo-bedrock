@@ -2,7 +2,7 @@
 Odoo Bedrock container image
 ============================
 
-/!\ this is alpha stuff, use at your own risk, expect things to change /!\
+``/!\ this is alpha stuff, use at your own risk, expect things to change /!\``
 
 This image is meant as a greatest common denominator foundation to run Odoo.
 
@@ -82,7 +82,7 @@ Installing from pre-built manylinux wheels
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If your Odoo project is a regular python project with dependencies
-(including Odoo itself) declared in a `requirements.txt` you can use
+(including Odoo itself) declared in a ``requirements.txt`` you can use
 such a Dockerfile:
 
 .. code:: dockerfile
@@ -109,8 +109,8 @@ using a bind mounted volume during build:
 Credits
 =======
 
-Inspiration has been drawn from `camptocamp/odoo-project <https://github.com/camptocamp/docker-odoo-project>`_
-in particular many environment variables, the odoo config file templates, entrypoint.sh and the travis config.
+Inspiration has been drawn from `camptocamp/docker-odoo-project <https://github.com/camptocamp/docker-odoo-project>`_
+for most environment variables, the odoo config file templates, entrypoint.sh and the travis config.
 This is by design, in other to facilitate possible future convergence.
 
 Contributors
