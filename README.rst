@@ -61,7 +61,7 @@ in ``myaddons``. You can create the following Dockerfile:
 
 .. code:: dockerfile
 
-  FROM acsone/odoo-bedrock:10.0-latest
+  FROM quay.io/acsone/odoo-bedrock:10.0-latest
 
   COPY ./src/odoo /odoo/src/odoo
   RUN \
@@ -87,7 +87,7 @@ such a Dockerfile:
 
 .. code:: dockerfile
 
-  FROM acsone/odoo-bedrock:10.0-latest
+  FROM quay.io/acsone/odoo-bedrock:10.0-latest
 
   RUN pip install --no-index --no-deps /tmp/release/*.whl
 
