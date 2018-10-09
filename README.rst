@@ -7,7 +7,7 @@ Odoo Bedrock container image
 This image is meant as a greatest common denominator foundation to run Odoo.
 
 It is a BYOO (bring-your-own-odoo) image, which means you need
-to create a derived image which adds your Odoo and addons.
+to create a derived image that adds your Odoo and addons.
 This image does not mandate any particular installation method 
 for Odoo and addons, nor does it impose any constraint on your project
 structure.
@@ -27,7 +27,7 @@ Features
 * Odoo mandatory external dependencies (wkhtmltopdf, lessc)
 
 Note **Odoo's python dependencies are not included**: you need to pip install
-Odoo's requirements.txt. This is not done in the base image as different projects
+Odoo's requirements.txt, or apt install them. This is not done in the base image as different projects
 may require different versions of these libraries.
 
 Other dependencies are also notably absent (graphviz, antiword, poppler-utils),
@@ -36,7 +36,7 @@ versions.
 
 The entrypoint does the following:
 
-* confd + gosu, mostly. TBC
+* confd + gosu, `mostly <./bin/entrypoint.sh>`_. TBC
 
 Configuration
 =============
@@ -111,7 +111,7 @@ Credits
 
 Inspiration has been drawn from `camptocamp/docker-odoo-project <https://github.com/camptocamp/docker-odoo-project>`_
 for most environment variables, the odoo config file templates, entrypoint.sh and the travis config.
-This is by design, in other to facilitate possible future convergence.
+This is by design, in order to facilitate possible future convergence.
 
 Contributors
 ~~~~~~~~~~~~
