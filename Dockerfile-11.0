@@ -34,6 +34,7 @@ VOLUME ["/data/odoo"]
 
 EXPOSE 8069 8072
 
+RUN mkdir -p /odoo/start-entrypoint.d
 COPY ./bin/entrypoint.sh /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD $ODOO_BIN
