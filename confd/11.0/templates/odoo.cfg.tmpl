@@ -30,7 +30,6 @@ syslog = {{ getv "/syslog" "False" }}
 running_env = {{ getv "/running/env" "dev" }}
 without_demo = {{ getv "/without/demo" "True" }}
 server_wide_modules = {{ getv "/server/wide/modules" "" }}
-; db_sslmode =
 ; We can activate proxy_mode even if we are not behind a proxy, because
 ; it is used only if HTTP_X_FORWARDED_HOST is set in environ
 proxy_mode = True
