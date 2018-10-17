@@ -36,4 +36,4 @@ EXPOSE 8069 8072
 
 COPY ./bin/entrypoint.sh /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-CMD $ODOO_BIN
+CMD ["openerp-server"]
