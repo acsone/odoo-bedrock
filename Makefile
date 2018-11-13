@@ -1,5 +1,5 @@
 ifndef ODOOVERSION
-$(error VERSION is not set)
+$(error ODOOVERSION is not set)
 endif
 
 ifndef PYTHONTAG
