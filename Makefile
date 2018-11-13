@@ -20,7 +20,7 @@ endif
 
 BASENAME=odoo-bedrock
 NAME=$(REGISTRY)/acsone/$(BASENAME)
-IMAGE=$(NAME):$(ODOOVERSION)-$(PYTHONTAG)-$(TAG)
+IMAGE=$(NAME):$(ODOOVERSION)-$(PYTHONTAG)
 
 export
 
