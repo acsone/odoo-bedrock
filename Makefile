@@ -32,6 +32,11 @@ build:
 	docker build --no-cache --build-arg PYTHONBIN=$(PYTHONBIN) -f ./Dockerfile-$(ODOOVERSION) -t $(IMAGE) .
 
 
+.PHONY: tag
+tag:
+	docker tag $(IMAGE) $(IMAGE)-$(TAG)
+
+
 .PHONY: push
 push:
 	docker push $(IMAGE)-$(TAG)
