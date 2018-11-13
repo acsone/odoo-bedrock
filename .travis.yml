@@ -4,11 +4,14 @@ services: docker
 
 env:
   matrix:
-    - VERSION=8.0
-    - VERSION=9.0
-    - VERSION=10.0
-    - VERSION=11.0
-    - VERSION=12.0
+    - env: ODOOVERSION=8.0 PYTHONTAG=py27
+    - env: ODOOVERSION=9.0 PYTHONTAG=py27
+    - env: ODOOVERSION=10.0 PYTHONTAG=py27
+    - env: ODOOVERSION=11.0 PYTHONTAG=py35 PYTHONBIN=python3.5
+    - env: ODOOVERSION=11.0 PYTHONTAG=py36 PYTHONBIN=python3.6
+    - env: ODOOVERSION=12.0 PYTHONTAG=py35 PYTHONBIN=python3.5
+    - env: ODOOVERSION=12.0 PYTHONTAG=py36 PYTHONBIN=python3.6
+    - env: ODOOVERSION=12.0 PYTHONTAG=py37 PYTHONBIN=python3.7
 
 script:
   - make VERSION=$VERSION build

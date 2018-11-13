@@ -1,16 +1,26 @@
-BASENAME=odoo-bedrock
-NAME=$(REGISTRY)/acsone/$(BASENAME)
-
-ifndef VERSION
+ifndef ODOOVERSION
 $(error VERSION is not set)
+endif
+
+ifndef PYTHONTAG
+$(error PYTHONTAG is not set)
+endif
+
+ifndef PYTHONBIN
+$(error PYTHONBIN is not set)
+endif
+
+ifndef TAG
+TAG=latest
 endif
 
 ifndef REGISTRY
 $(error REGISTRY is not set)
 endif
 
-IMAGE=$(NAME):$(VERSION)
-IMAGE_LATEST=$(IMAGE)-latest
+BASENAME=odoo-bedrock
+NAME=$(REGISTRY)/acsone/$(BASENAME)
+IMAGE=$(NAME):$(ODOOVERSION)-$(PYTHONTAG)-$(TAG)
 
 export
 
@@ -19,12 +29,7 @@ all: build
 
 .PHONY: build
 build:
-	docker build --no-cache -f ./Dockerfile-$(VERSION) -t $(IMAGE_LATEST) .
-
-
-.PHONY: tag
-tag:
-	docker tag $(IMAGE_LATEST) $(IMAGE)-$(TAG)
+	docker build --no-cache --build-arg PYTHONBIN=$(PYTHONBIN) -f ./Dockerfile-$(ODOOVERSION) -t $(IMAGE) .
 
 
 .PHONY: push

@@ -1,6 +1,8 @@
 FROM ubuntu:18.04
 MAINTAINER ACSONE SA/NV
 
+ARG PYTHONBIN=python2.7
+
 ENV \
   ODOO_VERSION=10.0 \
   ODOO_BIN=odoo \
@@ -21,7 +23,7 @@ RUN set -x \
   && rm -r /tmp/install
 
 # isolate from system python libraries
-RUN python -m virtualenv /odoo
+RUN $PYTHONBIN -m virtualenv /odoo
 ENV PATH=/odoo/bin:$PATH
 
 # odoo config file
