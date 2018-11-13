@@ -9,5 +9,5 @@ if [ "${PYTHONBIN}" != "python3.6" ] ; then
     apt-get purge -y --auto-remove software-properties-common
 else
     # ubuntu 18 has pyton 3.6
-    apt-get install -y --no-install-recommends ${PYTHONBIN}-venv
+    apt-get install -y --no-install-recommends ${PYTHONBIN}-venv python3-venv
 fi
