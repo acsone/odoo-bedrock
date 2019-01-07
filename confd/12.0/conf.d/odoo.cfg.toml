@@ -9,7 +9,7 @@ keys = [
   "/db/user",
   "/db/password",
   "/db/sslmode",
-  "/db/name",
+  "/db/filter",
   "/list/db",
   "/admin/passwd",
   "/db/maxconn",
