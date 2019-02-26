@@ -11,5 +11,18 @@ rm -rf wkhtmltox wkhtmltox.tar.xz
 apt-get purge -y --auto-remove xz-utils
 
 apt-get install -y --no-install-recommends \
+  ca-certificates \
+  fontconfig \
+  libc6 \
+  libfreetype6 \
+  libjpeg-turbo8 \
+  libpng16-16 \
+  libssl1.1 \
+  libstdc++6 \
+  libx11-6 \
+  libxcb1 \
+  libxext6 \
+  libxrender1 \
   xfonts-75dpi \
-  xfonts-base
+  xfonts-base \
+  zlib1g
