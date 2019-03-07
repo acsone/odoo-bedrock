@@ -8,7 +8,8 @@ ENV \
   ODOO_BIN=openerp-server \
   LANG=C.UTF-8 \
   LC_ALL=C.UTF-8 \
-  DEBIAN_FRONTEND=noninteractive
+  DEBIAN_FRONTEND=noninteractive \
+  KWKHTMLTOPDF_SERVER_URL=http://kwkhtmltopdf
 
 COPY ./install /tmp/install
 RUN set -x \
@@ -18,7 +19,7 @@ RUN set -x \
   && /tmp/install/gosu.sh \
   && /tmp/install/python2.sh \
   && /tmp/install/lessc.sh \
-  && /tmp/install/wkhtml_12_4.sh \
+  && /tmp/install/wkhtmltopdf.sh \
   && /tmp/install/post-install-clean.sh \
   && rm -r /tmp/install
 

@@ -24,7 +24,9 @@ Features
 * `gosu <https://github.com/tianon/gosu>`_ to step down from root in the entrypoint
 * ``nano``, ``less``, for some rudimentary comfort when the time comes to investigate
   the container on the terminal
-* Odoo mandatory external dependencies (wkhtmltopdf, lessc)
+* `kwkhtmltopdf <https://github.com/acsone/kwkhtmltopdf>`_ client. The default
+  KWKHTMLTOPDF_SERVER_URL environment variable is set to http://kwkhtmltopdf.
+* Odoo mandatory external dependencies (ie lessc for Odoo < 12)
 
 Note **Odoo's python dependencies are not included**: you need to pip install
 Odoo's requirements.txt, or apt install them.
