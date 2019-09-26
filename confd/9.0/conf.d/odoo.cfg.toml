@@ -28,4 +28,5 @@ keys = [
   "/without/demo",
   "/server/wide/modules",
   "/unaccent",
+  "/additional/odoo/rc",
 ]
