@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM docker.io/ubuntu:18.04
 MAINTAINER ACSONE SA/NV
 
 ARG PYTHONBIN=python2.7
