@@ -26,7 +26,7 @@ RUN set -x \
 
 # isolate from system python libraries
 RUN set -x \
-  $PYTHONBIN -m venv /odoo \
+  && $PYTHONBIN -m venv /odoo \
   && /odoo/bin/pip install -U pip wheel
 ENV PATH=/odoo/bin:$PATH
 
