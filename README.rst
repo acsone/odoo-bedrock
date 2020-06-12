@@ -27,6 +27,8 @@ Features
 * `kwkhtmltopdf <https://github.com/acsone/kwkhtmltopdf>`_ client. The default
   KWKHTMLTOPDF_SERVER_URL environment variable is set to http://kwkhtmltopdf.
 * Odoo mandatory external dependencies (ie lessc for Odoo < 12)
+* postgres `apt repo <https://wiki.postgresql.org/wiki/Apt>`_ for easy installation
+  of the latest postgres client tools if needed
 
 Note **Odoo's python dependencies are not included**: you need to pip install
 Odoo's requirements.txt, or apt install them.

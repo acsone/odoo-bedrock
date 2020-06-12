@@ -21,6 +21,7 @@ RUN set -x \
   && /tmp/install/python3.sh \
   && /tmp/install/lessc.sh \
   && /tmp/install/wkhtmltopdf.sh \
+  && /tmp/install/pgdg.sh \
   && /tmp/install/post-install-clean.sh \
   && rm -r /tmp/install
 
