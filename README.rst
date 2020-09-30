@@ -17,7 +17,11 @@ structure.
 Features
 ========
 
-* Ubuntu 18.04 minimal, because it's small and has recent pythons
+* Ubuntu minimal because it's small and has recent pythons
+  
+  * 20.04 for Odoo 14 images
+  * 18.04 for Odoo <= 13 images
+
 * python, obviously
 * `confd <https://github.com/kelseyhightower/confd>`_ to generate
   the Odoo configuration file from environment variables or any other source
