@@ -22,20 +22,21 @@ Features
   * 20.04 for Odoo 14 images
   * 18.04 for Odoo <= 13 images
 
-* python, obviously
+* ``python``, obviously. 
 * `confd <https://github.com/kelseyhightower/confd>`_ to generate
   the Odoo configuration file from environment variables or any other source
 * `gosu <https://github.com/tianon/gosu>`_ to step down from root in the entrypoint
 * ``nano``, ``less``, for some rudimentary comfort when the time comes to investigate
   the container on the terminal
-* `kwkhtmltopdf <https://github.com/acsone/kwkhtmltopdf>`_ client. The default
+* ``/usr/local/bin/wkhtmltopdf`` is the `kwkhtmltopdf
+  <https://github.com/acsone/kwkhtmltopdf>`_ client. The default
   KWKHTMLTOPDF_SERVER_URL environment variable is set to http://kwkhtmltopdf.
-* Odoo mandatory external dependencies (ie lessc for Odoo < 12)
+* Odoo mandatory external dependencies (i.e. ``lessc`` for Odoo < 12)
 * postgres `apt repo <https://wiki.postgresql.org/wiki/Apt>`_ for easy installation
   of the latest postgres client tools if needed
 
 Note **Odoo's python dependencies are not included**: you need to pip install
-Odoo's requirements.txt, or apt install them.
+Odoo's ``requirements.txt``, or apt install them.
 This is not done in the base image as different projects
 may require different versions of these libraries.
 
@@ -45,7 +46,8 @@ versions.
 
 The entrypoint does the following:
 
-* confd + gosu, `mostly <./bin/entrypoint.sh>`_. TBC
+* confd + gosu, `mostly <./bin/entrypoint.sh>`_.
+* run scripts in /odoo/start-entrypoint.d/
 
 Configuration
 =============
