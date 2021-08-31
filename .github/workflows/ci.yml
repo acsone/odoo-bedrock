@@ -1,0 +1,74 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-odoo:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - ODOOVERSION: "8.0"
+            PYTHONTAG: py27
+            PYTHONBIN: python2.7
+          - ODOOVERSION: "9.0"
+            PYTHONTAG: py27
+            PYTHONBIN: python2.7
+          - ODOOVERSION: "10.0"
+            PYTHONTAG: py27
+            PYTHONBIN: python2.7
+          - ODOOVERSION: "11.0"
+            PYTHONTAG: py35
+            PYTHONBIN: python3.5
+          - ODOOVERSION: "11.0"
+            PYTHONTAG: py36
+            PYTHONBIN: python3.6
+          - ODOOVERSION: "12.0"
+            PYTHONTAG: py35
+            PYTHONBIN: python3.5
+          - ODOOVERSION: "12.0"
+            PYTHONTAG: py36
+            PYTHONBIN: python3.6
+          - ODOOVERSION: "12.0"
+            PYTHONTAG: py37
+            PYTHONBIN: python3.7
+          - ODOOVERSION: "13.0"
+            PYTHONTAG: py36
+            PYTHONBIN: python3.6
+          - ODOOVERSION: "13.0"
+            PYTHONTAG: py37
+            PYTHONBIN: python3.7
+          - ODOOVERSION: "14.0"
+            PYTHONTAG: py36
+            PYTHONBIN: python3.6
+          - ODOOVERSION: "14.0"
+            PYTHONTAG: py37
+            PYTHONBIN: python3.7
+          - ODOOVERSION: "14.0"
+            PYTHONTAG: py38
+            PYTHONBIN: python3.8
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to ghcr.io
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: Dockerfile-${{ matrix.ODOOVERSION }}
+          build-args: |
+            PYTHONBIN=${{ matrix.PYTHONBIN }}
+          tags: |
+            ghcr.io/${{ github.repository }}:${{ matrix.ODOOVERSION }}-${{ matrix.PYTHONTAG }}-latest
+          cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:${{ matrix.ODOOVERSION }}-${{ matrix.PYTHONTAG }}-latest
+          cache-to: type=inline
+          push: true

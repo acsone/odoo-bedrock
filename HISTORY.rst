@@ -1,3 +1,4 @@
+* 2021-08-31: build with github actions to ghcr.io
 * 2020-06-12: postgres `apt repo <https://wiki.postgresql.org/wiki/Apt>`_ for easy installation
   of the latest postgres client tools if needed
 * 2019-03-17: use go version of `kwkhtmltopdf <https://github.com/acsone/kwkhtmltopdf>`_ client instead python version
