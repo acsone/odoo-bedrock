@@ -1,0 +1,6 @@
+#############################################################################
+# Running odoo, odoo shell, click-odoo, etc.. as root 
+# may corrupt filestore or and other file permissions.
+# 
+# Use `gosu odoo {cmd}`
+#############################################################################
