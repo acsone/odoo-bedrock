@@ -72,20 +72,20 @@ in ``myaddons``. You can create the following Dockerfile:
 
 .. code:: dockerfile
 
-  FROM ghcr.io/acsone/odoo-bedrock:10.0-latest
+  FROM ghcr.io/acsone/odoo-bedrock:14.0-py38-latest
 
   COPY ./src/odoo /odoo/src/odoo
   RUN \
     pip install --no-cache-dir \
       -r /odoo/src/odoo/requirements.txt \
-      -f https://wheelhouse.acsone.eu/manylinux1 \
+      -f https://wheelhouse.acsone.eu/manylinux2014 \
     && pip install -e /odoo/src/odoo
 
   COPY ./myaddons /odoo/myaddons
 
   ENV ADDONS_PATH=/odoo/src/odoo/addons,/odoo/src/odoo/odoo/addons,/odoo/myaddons
 
-Note the use of ``-f https://wheelhouse.acsone.eu/manylinux1`` to
+Note the use of ``-f https://wheelhouse.acsone.eu/manylinux2014`` to
 find binary wheels that work without additional system dependencies.
 This is not mandadatory but helps having an image without build tools.
 
