@@ -3,6 +3,7 @@ src = "odoo.cfg.tmpl"
 dest = "/etc/odoo.cfg"
 keys = [
   "/addons/path",
+  "/db/template",
   "/db/host",
   "/db/port",
   "/db/name",
