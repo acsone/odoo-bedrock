@@ -1,0 +1,51 @@
+[options]
+addons_path = {{ getv "/addons/path" "" }}
+data_dir = /data/odoo
+auto_reload = False
+db_template = {{ getv "/db/template" "template1" }}
+db_host = {{ getv "/db/host" }}
+db_port = {{ getv "/db/port" "5432" }}
+db_name = {{ getv "/db/name" }}
+db_user = {{ getv "/db/user" }}
+db_password = {{ getv "/db/password" }}
+db_sslmode = {{ getv "/db/sslmode" "prefer" }}
+dbfilter = {{if getv "/db/filter" "" }}{{ getv "/db/filter" }}{{else}}^({{ replace (getv "/db/name") "," "|" -1 }})${{end}}
+list_db = {{ getv "/list/db" "False" }}
+admin_passwd = {{ getv "/admin/passwd" "" }}
+db_maxconn = {{ getv "/db/maxconn" "64" }}
+limit_memory_soft = {{ getv "/limit/memory/soft" "2147483648" }}
+limit_memory_hard = {{ getv "/limit/memory/hard" "2684354560" }}
+limit_request = {{ getv "/limit/request" "8192" }}
+limit_time_cpu = {{ getv "/limit/time/cpu" "60" }}
+limit_time_real = {{ getv "/limit/time/real" "120" }}
+limit_time_real_cron = {{ getv "/limit/time/real/cron" "120" }}
+log_handler = {{ getv "/log/handler" "':INFO'" }}
+log_level = {{ getv "/log/level" "info" }}
+max_cron_threads = {{ getv "/max/cron/threads" "2" }}
+workers = {{ getv "/workers" "4" }}
+logfile = {{ getv "/logfile" "None" }}
+log_db = {{ getv "/log/db" "False" }}
+logrotate = True
+syslog = {{ getv "/syslog" "False" }}
+running_env = {{ getv "/running/env" "dev" }}
+without_demo = {{ getv "/without/demo" "True" }}
+server_wide_modules = {{ getv "/server/wide/modules" "" }}
+; We can activate proxy_mode even if we are not behind a proxy, because
+; it is used only if HTTP_X_FORWARDED_HOST is set in environ
+proxy_mode = True
+; csv_internal_sep = ,
+; debug_mode = False
+; email_from = False
+; http_port = 8069
+; http_enable = True
+; http_interface =
+; longpolling_port = 8072
+; osv_memory_age_limit = 1.0
+; osv_memory_count_limit = False
+; smtp_password = False
+; smtp_port = 25
+; smtp_server = localhost
+; smtp_ssl = False
+; smtp_user = False
+unaccent = {{ getv "/unaccent" "False" }}
+{{ getv "/additional/odoo/rc" "" }}

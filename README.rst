@@ -19,7 +19,8 @@ Features
 
 * Ubuntu minimal because it's small and has recent pythons
   
-  * 20.04 for Odoo 14 images
+  * 22.04 for Odoo 16 images
+  * 20.04 for Odoo 14, 15 images
   * 18.04 for Odoo <= 13 images
 
 * ``python``, obviously. 

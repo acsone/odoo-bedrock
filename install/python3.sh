@@ -6,6 +6,8 @@ if [ "${UBUNTU_CODENAME}" == "bionic" ] ; then
     SYSTEM_PYTHON=python3.6
 elif [ "${UBUNTU_CODENAME}" == "focal" ] ; then
     SYSTEM_PYTHON=python3.8
+elif [ "${UBUNTU_CODENAME}" == "jammy" ] ; then
+    SYSTEM_PYTHON=python3.10
 else
     echo "Unknown UBUNTU_CODENAME '${UBUNTU_CODENAME}'"
     exit 1
