@@ -19,7 +19,8 @@ Features
 
 * Ubuntu minimal because it's small and has recent pythons
   
-  * 20.04 for Odoo 14 images
+  * 22.04 for Odoo 16 images
+  * 20.04 for Odoo 14 and 15 images
   * 18.04 for Odoo <= 13 images
 
 * ``python``, obviously. 
@@ -95,7 +96,7 @@ Credits
 Inspiration has been drawn from
 `camptocamp/docker-odoo-project <https://github.com/camptocamp/docker-odoo-project>`_
 for most environment variables, the odoo config file templates,
-entrypoint.sh and the travis config.
+and entrypoint.sh.
 This is by design, in order to facilitate possible future convergence.
 
 Contributors

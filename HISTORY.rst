@@ -1,3 +1,4 @@
+* 2022-05-13: preliminary Odoo 16 support
 * 2021-08-31: add warning banner when entering root shell
 * 2021-08-31: build with github actions to ghcr.io
 * 2020-06-12: postgres `apt repo <https://wiki.postgresql.org/wiki/Apt>`_ for easy installation
