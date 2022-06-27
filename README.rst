@@ -86,9 +86,13 @@ in ``myaddons``. You can create the following Dockerfile:
 
   ENV ADDONS_PATH=/odoo/src/odoo/addons,/odoo/src/odoo/odoo/addons,/odoo/myaddons
 
-Note the use of ``-f https://wheelhouse.acsone.eu/manylinux2014`` to
-find binary wheels that work without additional system dependencies.
-This is not mandadatory but helps having an image without build tools.
+Note:
+
+- the use of ``-f https://wheelhouse.acsone.eu/manylinux2014`` to
+  find binary wheels that work without additional system dependencies.
+  This is not mandadatory but helps having an image without build tools.
+- for python2.7 Odoo versions (8.0, 9.0 and 10.0) please use
+  ``-f https://wheelhouse.acsone.eu/manylinux1``
 
 Credits
 =======
