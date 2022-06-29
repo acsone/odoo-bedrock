@@ -34,6 +34,7 @@ ENV PATH=/odoo/bin:$PATH
 # odoo config file
 COPY ./confd/${ODOO_VERSION} /etc/confd
 ENV OPENERP_SERVER=/etc/odoo.cfg
+ENV ODOO_RC=/etc/odoo.cfg
 
 # odoo data dir (filestore, etc)
 RUN mkdir -p /data/odoo
