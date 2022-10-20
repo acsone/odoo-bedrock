@@ -10,12 +10,21 @@ id -u odoo &> /dev/null || useradd --shell /bin/bash -u $USER_ID -o -c "" -m odo
 
 confd -log-level=warn -onetime -backend ${CONFD_BACKEND:-env} ${CONFD_OPTS:-}
 
-# TODO this could (should?) be sourced from file(s) under confd control
 export PGHOST=${DB_HOST}
 export PGPORT=${DB_PORT:-5432}
 export PGUSER=${DB_USER}
 export PGPASSWORD=${DB_PASSWORD}
 export PGDATABASE=${DB_NAME}
+
+# Set PG environment in root .bashrc so we have some comfort
+# when entering a shell in the container.
+echo "
+export PGHOST=\${DB_HOST}
+export PGPORT=\${DB_PORT}
+export PGUSER=\${DB_USER}
+export PGPASSWORD=\${DB_PASSWORD}
+export PGDATABASE=\${DB_NAME}
+" >>/root/.bashrc
 
 mkdir -p /data/odoo/{addons,filestore,sessions}
 if [ ! "$(stat -c '%U' /data/odoo)" = "odoo" ]; then
