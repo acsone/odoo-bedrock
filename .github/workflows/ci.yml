@@ -43,6 +43,9 @@ jobs:
           - ODOOVERSION: "13.0"
             PYTHONTAG: py37
             PYTHONBIN: python3.7
+          - ODOOVERSION: "13.0"
+            PYTHONTAG: py310
+            PYTHONBIN: python3.10
           - ODOOVERSION: "14.0"
             PYTHONTAG: py36
             PYTHONBIN: python3.6
