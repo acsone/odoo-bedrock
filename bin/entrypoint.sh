@@ -8,6 +8,7 @@ USER_ID=${LOCAL_USER_ID:-999}
 
 id -u odoo &> /dev/null || useradd --shell /bin/bash -u $USER_ID -o -c "" -m odoo
 
+source /odoo/templates/answers.sh && envsubst < /odoo/templates/odoo.cfg.tmpl > /etc/odoo.cfg
 
 mkdir -p /data/odoo/{addons,filestore,sessions}
 if [ ! "$(stat -c '%U' /data/odoo)" = "odoo" ]; then
