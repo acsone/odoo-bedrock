@@ -19,7 +19,10 @@ keys = [
   "/limit/request",
   "/limit/time/cpu",
   "/limit/time/real",
+<<<<<<< HEAD
   "/limit/time/real/cron",
+=======
+>>>>>>> 703cb19 (Revert "remove confd")
   "/log/handler",
   "/log/level",
   "/max/cron/threads",
