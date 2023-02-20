@@ -1,33 +1,29 @@
-[template]
-src = "odoo.cfg.tmpl"
-dest = "/etc/odoo.cfg"
-keys = [
-  "/addons/path",
-  "/db/template",
-  "/db/host",
-  "/db/port",
-  "/db/name",
-  "/db/user",
-  "/db/password",
-  "/db/filter",
-  "/list/db",
-  "/admin/passwd",
-  "/db/maxconn",
-  "/limit/memory/soft",
-  "/limit/memory/hard",
-  "/limit/request",
-  "/limit/time/cpu",
-  "/limit/time/real",
-  "/log/handler",
-  "/log/level",
-  "/max/cron/threads",
-  "/workers",
-  "/logfile",
-  "/log/db",
-  "/syslog",
-  "/running/env",
-  "/without/demo",
-  "/server/wide/modules",
-  "/unaccent",
-  "/additional/odoo/rc",
-]
+declare -x ADDONS_PATH="${ADDONS_PATH:-}"
+declare -x DB_TEMPLATE="${DB_TEMPLATE:-template1}"
+declare -x DB_HOST="${DB_HOST:-}"
+declare -x DB_PORT="${DB_PORT:-5432}"
+declare -x DB_NAME="${DB_NAME:-}"
+declare -x DB_USER="${DB_USER:-}"
+declare -x DB_PASSWORD="${DB_PASSWORD:-}"
+declare -x DB_FILTER="${DB_FILTER:-}"
+declare -x LIST_DB="${LIST_DB:-False}"
+declare -x ADMIN_PASSWD="${ADMIN_PASSWD:-}"
+declare -x DB_MAXCONN="${DB_MAXCONN:-64}"
+declare -x LIMIT_MEMORY_SOFT="${LIMIT_MEMORY_SOFT:-2147483648}"
+declare -x LIMIT_MEMORY_HARD="${LIMIT_MEMORY_HARD:-2684354560}"
+declare -x LIMIT_REQUEST="${LIMIT_REQUEST:-8192}"
+declare -x LIMIT_TIME_CPU="${LIMIT_TIME_CPU:-60}"
+declare -x LIMIT_TIME_REAL="${LIMIT_TIME_REAL:-120}"
+declare -x LIMIT_TIME_REAL_CRON="${LIMIT_TIME_REAL_CRON:-120}"
+declare -x LOG_HANDLER="${LOG_HANDLER:-:INFO}"
+declare -x LOG_LEVEL="${LOG_LEVEL:-info}"
+declare -x MAX_CRON_THREADS="${MAX_CRON_THREADS:-2}"
+declare -x WORKERS="${WORKERS:-4}"
+declare -x LOGFILE="${LOGFILE:-}"
+declare -x LOG_DB="${LOG_DB:-False}"
+declare -x SYSLOG="${SYSLOG:-False}"
+declare -x RUNNING_ENV="${RUNNING_ENV:-dev}"
+declare -x WITHOUT_DEMO="${WITHOUT_DEMO:-True}"
+declare -x SERVER_WIDE_MODULES="${SERVER_WIDE_MODULES:-}"
+declare -x UNACCENT="${UNACCENT:-False}"
+declare -x ADDITIONAL_ODOO_RC="${ADDITIONAL_ODOO_RC:-}"
