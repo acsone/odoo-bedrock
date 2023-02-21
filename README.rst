@@ -2,8 +2,6 @@
 Odoo Bedrock container image
 ============================
 
-``/!\ this is alpha stuff, use at your own risk, expect things to change /!\``
-
 This image is meant as a greatest common denominator foundation to run Odoo.
 
 It is a BYOO (bring-your-own-odoo) image, which means you need
@@ -14,8 +12,12 @@ structure.
 
 .. contents::
 
-Features
-========
+Features exposed by these images
+================================
+
+.. note::
+   
+   Anything not documented here considered implementation detail and may change.
 
 * Ubuntu minimal because it's small and has recent pythons
   
@@ -24,15 +26,14 @@ Features
   * 18.04 for Odoo <= 13 images
 
 * ``python``, obviously. 
-* `confd <https://github.com/kelseyhightower/confd>`_ to generate
-  the Odoo configuration file from environment variables or any other source
-* `gosu <https://github.com/tianon/gosu>`_ to step down from root in the entrypoint
-* ``nano``, ``less``, for some rudimentary comfort when the time comes to investigate
-  the container on the terminal
+* An entrypoint that generates the Odoo config file (``$ODOO_RC``) from environment
+  variables (see the list of supported variables below).
 * ``/usr/local/bin/wkhtmltopdf`` is the `kwkhtmltopdf
   <https://github.com/acsone/kwkhtmltopdf>`_ client. The default
   KWKHTMLTOPDF_SERVER_URL environment variable is set to http://kwkhtmltopdf.
 * Odoo mandatory external dependencies (i.e. ``lessc`` for Odoo < 12)
+* ``nano``, ``less``, for some rudimentary comfort when the time comes to investigate
+  the container on the terminal
 * postgres `apt repo <https://wiki.postgresql.org/wiki/Apt>`_ for easy installation
   of the latest postgres client tools if needed
 
@@ -47,17 +48,24 @@ versions.
 
 The entrypoint does the following:
 
-* confd + gosu, `mostly <./bin/entrypoint.sh>`_.
-* run scripts in /odoo/start-entrypoint.d/
+* Generate the ``$ODOO_RC`` file from environment variables
+* If the command looks like odoo, run scripts in ``/odoo/start-entrypoint.d/``.
+* Unless ``$NOGOSU`` is set, run the entry point scripts, as well as the command, under
+  user ``$LOCAL_USER_ID`` (defaults to 999).
+
+For more details, read `./bin/entrypoint.sh <./bin/entrypoint.sh>`_.
 
 Configuration
-=============
+~~~~~~~~~~~~~
 
-TBC
+The following environment variables are used to generate the Odoo configuration file in
+``$ODOO_RC``:
 
-Required environment variables:
-
-* ``DB_HOST``, ``DB_USER``, ``DB_PASSWORD``, ``DB_NAME``
+* ``DB_HOST``
+* ``DB_USER``
+* ``DB_PASSWORD``
+* ``DB_NAME``
+* ... TODO
 
 Examples
 ========
