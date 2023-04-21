@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+  pull_request:
   schedule:
     - cron: "0 4 * * 0"
 
@@ -90,5 +91,22 @@ jobs:
           tags: |
             ghcr.io/${{ github.repository }}:${{ matrix.ODOOVERSION }}-${{ matrix.PYTHONTAG }}-latest
           cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:${{ matrix.ODOOVERSION }}-${{ matrix.PYTHONTAG }}-latest
+          cache-to: type=local,dest=/tmp/.buildx-cache
+          push: true
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install test pre-requisites
+        run: pip install pytest
+      - name: Test
+        run: pytest -v tests
+      - name: Push image
+        uses: docker/build-push-action@v4
+        with:
+          build-args: |
+            PYTHONBIN=${{ matrix.PYTHONBIN }}
+          tags: |
+            ghcr.io/${{ github.repository }}:${{ matrix.ODOOVERSION }}-${{ matrix.PYTHONTAG }}-latest
+          cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=inline
           push: true
+        if: ${{ github.repository_owner == 'acsone' && github.ref == 'refs/heads/master' }}

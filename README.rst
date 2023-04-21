@@ -61,11 +61,36 @@ Configuration
 The following environment variables are used to generate the Odoo configuration file in
 ``$ODOO_RC``:
 
+* ``ADDITIONAL_ODOO_RC``
+* ``ADDONS_PATH``
+* ``ADMIN_PASSWD``
+* ``DB_FILTER``
 * ``DB_HOST``
-* ``DB_USER``
-* ``DB_PASSWORD``
+* ``DB_MAXCONN``
 * ``DB_NAME``
-* ... TODO
+* ``DB_PASSWORD``
+* ``DB_PORT``
+* ``DB_SSLMODE``
+* ``DB_TEMPLATE``
+* ``DB_USER``
+* ``LIMIT_MEMORY_HARD``
+* ``LIMIT_MEMORY_SOFT``
+* ``LIMIT_REQUEST``
+* ``LIMIT_TIME_CPU``
+* ``LIMIT_TIME_REAL``
+* ``LIMIT_TIME_REAL_CRON`` (>=11)
+* ``LIST_DB``
+* ``LOG_DB``
+* ``LOG_HANDLER``
+* ``LOG_LEVEL``
+* ``LOGFILE``
+* ``MAX_CRON_THREADS``
+* ``RUNNING_ENV``
+* ``SERVER_WIDE_MODULES`` (>=10)
+* ``SYSLOG``
+* ``UNACCENT``
+* ``WITHOUT_DEMO``
+* ``WORKERS``
 
 Examples
 ========

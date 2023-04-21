@@ -1,0 +1,17 @@
+version: "3.7"
+services:
+  odoo:
+    build: .
+    volumes:
+      - ./tests:/tests
+    environment:
+      - DB_HOST=postgres
+      - DB_USER=odoouser
+      - DB_PASSWORD=odoopassword
+      - DB_NAME=odoodb
+  postgres:
+    image: "postgres"
+    environment:
+      - POSTGRES_USER=odoouser
+      - POSTGRES_PASSWORD=odoopassword
+      - POSTGRES_DB=odoodb
