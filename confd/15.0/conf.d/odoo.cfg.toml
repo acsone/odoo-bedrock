@@ -19,6 +19,7 @@ keys = [
   "/limit/request",
   "/limit/time/cpu",
   "/limit/time/real",
+  "/limit/time/real/cron",
   "/log/handler",
   "/log/level",
   "/max/cron/threads",

@@ -99,10 +99,56 @@ def test_run_no_entrypoints_with_custom_cmd():
 
 
 def test_default_odoo_cfg(odoo_version):
-    expected_odoo_cfg = (
+    expected_odoo_cfg_file = (
         Path(__file__).parent / "data" / f"expected-default-odoo-cfg-{odoo_version}.cfg"
     )
     compose_run(
         ["bash", "-c", "diff /etc/odoo.cfg /expected-odoo.cfg"],
-        volumes=[f"{expected_odoo_cfg}:/expected-odoo.cfg"],
+        volumes=[f"{expected_odoo_cfg_file}:/expected-odoo.cfg"],
+    )
+
+
+def test_odoo_cfg_env_vars(odoo_version):
+    expected_odoo_cfg_file = (
+        Path(__file__).parent / "data" / f"expected-odoo-cfg-{odoo_version}.cfg"
+    )
+    env_vars = {
+        "ADDITIONAL_ODOO_RC",
+        "ADDONS_PATH",
+        "ADMIN_PASSWD",
+        "DB_FILTER",
+        "DB_HOST",
+        "DB_MAXCONN",
+        "DB_NAME",
+        "DB_PASSWORD",
+        "DB_PORT",
+        "DB_SSLMODE",
+        "DB_TEMPLATE",
+        "DB_USER",
+        "LIMIT_MEMORY_HARD",
+        "LIMIT_MEMORY_SOFT",
+        "LIMIT_REQUEST",
+        "LIMIT_TIME_CPU",
+        "LIMIT_TIME_REAL",
+        "LIMIT_TIME_REAL_CRON",
+        "LIST_DB",
+        "LOG_DB",
+        "LOG_HANDLER",
+        "LOG_LEVEL",
+        "LOGFILE",
+        "MAX_CRON_THREADS",
+        "RUNNING_ENV",
+        "SERVER_WIDE_MODULES",
+        "SYSLOG",
+        "UNACCENT",
+        "WITHOUT_DEMO",
+        "WORKERS",
+    }
+    env = {}
+    for env_var in env_vars:
+        env[env_var] = f"*{env_var}*"
+    compose_run(
+        ["bash", "-c", "diff /etc/odoo.cfg /expected-odoo.cfg"],
+        volumes=[f"{expected_odoo_cfg_file}:/expected-odoo.cfg"],
+        env=env,
     )
