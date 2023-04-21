@@ -17,7 +17,12 @@ def compose_build():
     subprocess.run(cmd, check=True, cwd=HERE)
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def odoo_version():
     # /!\ Default must be the same as the ODOOVERSION build arg in test Dockerfile
     return os.environ.get("ODOOVERSION", "16.0")
+
+
+@pytest.fixture(scope="session")
+def parsed_odoo_version(odoo_version):
+    return tuple(int(x) for x in odoo_version.split("."))

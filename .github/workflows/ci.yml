@@ -96,6 +96,9 @@ jobs:
       - name: Install test pre-requisites
         run: pip install pytest
       - name: Test
+        env:
+          ODOOVERSION: "${{ matrix.ODOOVERSION }}"
+          PYTHONTAG: "${{ matrix.PYTHONTAG }}"
         run: pytest -v tests
       - name: Push image
         uses: docker/build-push-action@v4
