@@ -5,6 +5,8 @@ ARG PYTHONTAG=py310
 
 FROM $IMAGE:$ODOOVERSION-$PYTHONTAG-latest
 
+RUN apt-get update && apt-get install -y postgresql-client --no-install-recommends
+
 # Fake odoo command in PATH
 RUN echo "#!/bin/bash\necho running odoo UID=\$(id -u)\n" > /odoo/bin/odoo \
  && chmod +x /odoo/bin/odoo \

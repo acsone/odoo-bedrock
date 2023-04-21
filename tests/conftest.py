@@ -1,8 +1,11 @@
 from pathlib import Path
 import os
 import subprocess
+import time
 
 import pytest
+
+from .testlib import compose_run
 
 HERE = Path(__file__).parent
 
@@ -26,3 +29,36 @@ def odoo_version():
 @pytest.fixture(scope="session")
 def parsed_odoo_version(odoo_version):
     return tuple(int(x) for x in odoo_version.split("."))
+
+
+@pytest.fixture(scope="session")
+def compose_up(compose_build):
+    subprocess.run(["docker-compose", "up", "-d"], check=True, cwd=HERE)
+    try:
+        while compose_run(["pg_isready"], check=False).returncode != 0:
+            time.sleep(2)
+        yield
+    finally:
+        subprocess.run(["docker-compose", "down"], check=True, cwd=HERE)
+
+
+@pytest.fixture
+def init_odoo_db(compose_up):
+    """Fake Odoo database initialization."""
+    CREATE_IR_CONFIG_PARAMETERS = """
+        CREATE TABLE ir_config_parameter
+        (
+            create_uid integer,
+            write_uid integer,
+            create_date timestamp without time zone,
+            write_date timestamp without time zone,
+            key character varying NULL,
+            value text NOT NULL
+        )
+    """
+    DROP_IR_CONFIG_PARAMETERS = "DROP TABLE ir_config_parameter"
+    compose_run(["psql", "-c", CREATE_IR_CONFIG_PARAMETERS])
+    try:
+        yield
+    finally:
+        compose_run(["psql", "-c", DROP_IR_CONFIG_PARAMETERS])
