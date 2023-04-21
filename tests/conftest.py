@@ -15,3 +15,9 @@ def compose_build():
     if "PYTHONTAG" in os.environ:
         cmd.extend(["--build-arg", f"PYTHONTAG={os.environ['PYTHONTAG']}"])
     subprocess.run(cmd, check=True, cwd=HERE)
+
+
+@pytest.fixture
+def odoo_version():
+    # /!\ Default must be the same as the ODOOVERSION build arg in test Dockerfile
+    return os.environ.get("ODOOVERSION", "16.0")

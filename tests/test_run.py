@@ -48,23 +48,32 @@ def test_odoo_user_created_custom_uid():
 
 
 def test_data_dirs_created():
-    result = compose_run(["python", "-c", "import os; print(sorted(os.listdir('/data/odoo')))"])
+    result = compose_run(
+        ["python", "-c", "import os; print(sorted(os.listdir('/data/odoo')))"]
+    )
     assert "['addons', 'filestore', 'sessions']" in result.stdout
 
 
-def test_pgenv():
+def test_env_vars(odoo_version):
     cmd = []
     expected = []
-    for pg_env_key, pg_env_value in (
+    for key, value in (
         # see docker-compose.yml
+        ("ODOO_BIN", "odoo"),
+        ("ODOO_VERSION", odoo_version),
+        ("OPENERP_SERVER", "/etc/odoo.cfg"),
+        ("ODOO_RC", "/etc/odoo.cfg"),
+        ("KWKHTMLTOPDF_SERVER_URL", "http://kwkhtmltopdf"),
+        ("LANG", "C.UTF-8"),
+        ("LC_ALL", "C.UTF-8"),
         ("PGUSER", "odoouser"),
         ("PGPASSWORD", "odoopassword"),
         ("PGHOST", "postgres"),
         ("PGPORT", "5432"),
         ("PGDATABASE", "odoodb"),
     ):
-        cmd.append(f"echo {pg_env_key}=${pg_env_key}")
-        expected.append(f"{pg_env_key}={pg_env_value}")
+        cmd.append(f"echo {key}=${key}")
+        expected.append(f"{key}={value}")
     result = compose_run(["bash", "-c", "; ".join(cmd)])
     assert "\n".join(expected) in result.stdout
 
@@ -79,6 +88,7 @@ def test_run_entrypoints_nogosu():
     result = compose_run([], env={"NOGOSU": "1"})
     assert "entrypoint 1 UID=0\n" in result.stdout
     assert "entrypoint 2 UID=0\n" in result.stdout
+
 
 def test_run_no_entrypoints_with_custom_cmd():
     result = compose_run(["ls"])
