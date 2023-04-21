@@ -92,9 +92,7 @@ jobs:
             ghcr.io/${{ github.repository }}:${{ matrix.ODOOVERSION }}-${{ matrix.PYTHONTAG }}-latest
           cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:${{ matrix.ODOOVERSION }}-${{ matrix.PYTHONTAG }}-latest
           cache-to: type=local,dest=/tmp/.buildx-cache
-          push: true
-      - name: Checkout
-        uses: actions/checkout@v3
+          load: true
       - name: Install test pre-requisites
         run: pip install pytest
       - name: Test
