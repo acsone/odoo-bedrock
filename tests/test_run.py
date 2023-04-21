@@ -58,7 +58,6 @@ def test_env_vars(odoo_version):
     cmd = []
     expected = []
     for key, value in (
-        # see docker-compose.yml
         ("ODOO_BIN", "odoo"),
         ("ODOO_VERSION", odoo_version),
         ("OPENERP_SERVER", "/etc/odoo.cfg"),
@@ -66,6 +65,7 @@ def test_env_vars(odoo_version):
         ("KWKHTMLTOPDF_SERVER_URL", "http://kwkhtmltopdf"),
         ("LANG", "C.UTF-8"),
         ("LC_ALL", "C.UTF-8"),
+        # PG* are derived from DB_* (see entrypoint.sh and docker-compose.yml)
         ("PGUSER", "odoouser"),
         ("PGPASSWORD", "odoopassword"),
         ("PGHOST", "postgres"),
