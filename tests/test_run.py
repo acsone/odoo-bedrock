@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from .testlib import compose_run
 
 
@@ -94,3 +96,13 @@ def test_run_no_entrypoints_with_custom_cmd():
     result = compose_run(["ls"])
     assert "entrypoint 1" not in result.stdout
     assert "entrypoint 2" not in result.stdout
+
+
+def test_default_odoo_cfg(odoo_version):
+    expected_odoo_cfg = (
+        Path(__file__).parent / "data" / f"expected-default-odoo-cfg-{odoo_version}.cfg"
+    )
+    compose_run(
+        ["bash", "-c", "diff /etc/odoo.cfg /expected-odoo.cfg"],
+        volumes=[f"{expected_odoo_cfg}:/expected-odoo.cfg"],
+    )
