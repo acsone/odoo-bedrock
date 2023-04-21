@@ -56,14 +56,11 @@ def test_data_dirs_created():
     assert "['addons', 'filestore', 'sessions']" in result.stdout
 
 
-def test_env_vars(odoo_version):
-    cmd = []
-    expected = []
-    for key, value in (
+def test_env_vars(odoo_version, parsed_odoo_version):
+    env_vars = [
         ("ODOO_BIN", "odoo"),
         ("ODOO_VERSION", odoo_version),
         ("OPENERP_SERVER", "/etc/odoo.cfg"),
-        ("ODOO_RC", "/etc/odoo.cfg"),
         ("KWKHTMLTOPDF_SERVER_URL", "http://kwkhtmltopdf"),
         ("LANG", "C.UTF-8"),
         ("LC_ALL", "C.UTF-8"),
@@ -73,7 +70,12 @@ def test_env_vars(odoo_version):
         ("PGHOST", "postgres"),
         ("PGPORT", "5432"),
         ("PGDATABASE", "odoodb"),
-    ):
+    ]
+    if parsed_odoo_version >= (11, 0):
+        env_vars.append(("ODOO_RC", "/etc/odoo.cfg"))
+    cmd = []
+    expected = []
+    for key, value in env_vars:
         cmd.append(f"echo {key}=${key}")
         expected.append(f"{key}={value}")
     result = compose_run(["bash", "-c", "; ".join(cmd)])
