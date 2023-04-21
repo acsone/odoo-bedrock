@@ -7,7 +7,8 @@ FROM $IMAGE:$ODOOVERSION-$PYTHONTAG-latest
 
 # Fake odoo command in PATH
 RUN echo "#!/bin/bash\necho running odoo UID=\$(id -u)\n" > /odoo/bin/odoo \
- && chmod +x /odoo/bin/odoo
+ && chmod +x /odoo/bin/odoo \
+ && cp /odoo/bin/odoo /odoo/bin/openerp-server
 
 # Fake entry points
 RUN mkdir -p /odoo/start-entrypoint.d \

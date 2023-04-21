@@ -58,7 +58,6 @@ def test_data_dirs_created():
 
 def test_env_vars(odoo_version, parsed_odoo_version):
     env_vars = [
-        ("ODOO_BIN", "odoo"),
         ("ODOO_VERSION", odoo_version),
         ("OPENERP_SERVER", "/etc/odoo.cfg"),
         ("KWKHTMLTOPDF_SERVER_URL", "http://kwkhtmltopdf"),
@@ -71,6 +70,10 @@ def test_env_vars(odoo_version, parsed_odoo_version):
         ("PGPORT", "5432"),
         ("PGDATABASE", "odoodb"),
     ]
+    if parsed_odoo_version < (10, 0):
+        env_vars.append(("ODOO_BIN", "openerp-server"))
+    else:
+        env_vars.append(("ODOO_BIN", "odoo"))
     if parsed_odoo_version >= (11, 0):
         env_vars.append(("ODOO_RC", "/etc/odoo.cfg"))
     cmd = []
