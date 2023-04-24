@@ -16,7 +16,6 @@ COPY ./install /tmp/install
 RUN set -x \
   && /tmp/install/pre-install.sh \
   && /tmp/install/tools.sh \
-  && /tmp/install/confd.sh \
   && /tmp/install/gosu.sh \
   && /tmp/install/python3.sh \
   && /tmp/install/lessc.sh \
@@ -32,7 +31,7 @@ RUN set -x \
 ENV PATH=/odoo/bin:$PATH
 
 # odoo config file
-COPY ./confd/${ODOO_VERSION} /etc/confd
+COPY ./templates/${ODOO_VERSION} /odoo/templates
 ENV OPENERP_SERVER=/etc/odoo.cfg
 ENV ODOO_RC=/etc/odoo.cfg
 
