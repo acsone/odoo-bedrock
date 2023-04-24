@@ -227,3 +227,21 @@ def test_odoo_urls_set_db_initialized(init_odoo_db, parsed_odoo_version):
     )
     result = compose_run(["psql", "--tuples-only", "--csv", "-c", SELECT_URL_PARAMS])
     assert "http://odooreport2\nhttp://odoo2\nTrue\n" in result.stdout
+
+
+@pytest.mark.parametrize(
+    "db_name, expected_dbfilter",
+    [
+        ("db1", "db1"),
+        ("db1,db2", "db1|db2"),
+        ("db1,db2,db3", "db1|db2|db3"),
+    ],
+)
+def test_db_filter_multi_db(db_name, expected_dbfilter):
+    result = compose_run(
+        ["cat", "/etc/odoo.cfg"],
+        env={
+            "DB_NAME": db_name,
+        },
+    )
+    assert f"dbfilter = ^({expected_dbfilter})$\n" in result.stdout
