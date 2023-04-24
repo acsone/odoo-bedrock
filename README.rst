@@ -92,6 +92,13 @@ The following environment variables are used to generate the Odoo configuration 
 * ``WITHOUT_DEMO``
 * ``WORKERS``
 
+The following environment variables are processed by the entrypoint, if the psql client
+is installed (which is not the case by default):
+
+* ``ODOO_BASE_URL`` sets the ``web.base.url`` system parameter, and forces
+  ``web.base.urL.freeze`` to ``True``.
+* ``ODOO_REPORT_URL`` sets the ``report.url`` system parameter.
+
 Examples
 ========
 

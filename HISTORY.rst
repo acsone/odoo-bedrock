@@ -1,3 +1,6 @@
+* 2023-04-24: add support for ``ODOO_BASE_URL`` to set the ``web.base.url`` and
+  ``web.base.url.freeze`` system parameters, and ``ODOO_REPORT_URL`` environment
+  variables to set the ``report.url`` system parameter
 * 2022-05-13: preliminary Odoo 16 support
 * 2021-08-31: add warning banner when entering root shell
 * 2021-08-31: build with github actions to ghcr.io

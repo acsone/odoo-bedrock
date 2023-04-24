@@ -1,7 +1,17 @@
 from pathlib import Path
+import os
 import subprocess
 
 HERE = Path(__file__).parent
+
+
+def odoo_version():
+    # /!\ Default must be the same as the ODOOVERSION build arg in test Dockerfile
+    return os.environ.get("ODOOVERSION", "16.0")
+
+
+def parsed_odoo_version():
+    return tuple(int(x) for x in odoo_version().split("."))
 
 
 def compose_run(command, env=None, check=True, volumes=None):

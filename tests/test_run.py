@@ -1,6 +1,8 @@
 from pathlib import Path
 
-from .testlib import compose_run
+import pytest
+
+from .testlib import compose_run, parsed_odoo_version, odoo_version
 
 
 def test_run_odoo_default_command():
@@ -56,9 +58,9 @@ def test_data_dirs_created():
     assert "['addons', 'filestore', 'sessions']" in result.stdout
 
 
-def test_env_vars(odoo_version, parsed_odoo_version):
+def test_env_vars():
     env_vars = [
-        ("ODOO_VERSION", odoo_version),
+        ("ODOO_VERSION", odoo_version()),
         ("OPENERP_SERVER", "/etc/odoo.cfg"),
         ("KWKHTMLTOPDF_SERVER_URL", "http://kwkhtmltopdf"),
         ("LANG", "C.UTF-8"),
@@ -70,11 +72,11 @@ def test_env_vars(odoo_version, parsed_odoo_version):
         ("PGPORT", "5432"),
         ("PGDATABASE", "odoodb"),
     ]
-    if parsed_odoo_version < (10, 0):
+    if parsed_odoo_version() < (10, 0):
         env_vars.append(("ODOO_BIN", "openerp-server"))
     else:
         env_vars.append(("ODOO_BIN", "odoo"))
-    if parsed_odoo_version >= (11, 0):
+    if parsed_odoo_version() >= (11, 0):
         env_vars.append(("ODOO_RC", "/etc/odoo.cfg"))
     cmd = []
     expected = []
@@ -103,9 +105,11 @@ def test_run_no_entrypoints_with_custom_cmd():
     assert "entrypoint 2" not in result.stdout
 
 
-def test_default_odoo_cfg(odoo_version):
+def test_default_odoo_cfg():
     expected_odoo_cfg_file = (
-        Path(__file__).parent / "data" / f"expected-default-odoo-cfg-{odoo_version}.cfg"
+        Path(__file__).parent
+        / "data"
+        / f"expected-default-odoo-cfg-{odoo_version()}.cfg"
     )
     compose_run(
         ["bash", "-c", "diff /etc/odoo.cfg /expected-odoo.cfg"],
@@ -113,9 +117,9 @@ def test_default_odoo_cfg(odoo_version):
     )
 
 
-def test_odoo_cfg_env_vars(odoo_version):
+def test_odoo_cfg_env_vars():
     expected_odoo_cfg_file = (
-        Path(__file__).parent / "data" / f"expected-odoo-cfg-{odoo_version}.cfg"
+        Path(__file__).parent / "data" / f"expected-odoo-cfg-{odoo_version()}.cfg"
     )
     env_vars = {
         "ADDITIONAL_ODOO_RC",
@@ -157,3 +161,69 @@ def test_odoo_cfg_env_vars(odoo_version):
         volumes=[f"{expected_odoo_cfg_file}:/expected-odoo.cfg"],
         env=env,
     )
+
+
+@pytest.mark.skipif(
+    parsed_odoo_version() < (10, 0),
+    reason="ODOO_BASE_URL and ODOO_REPORT_URL not supported",
+)
+def test_odoo_urls_not_set(compose_up):
+    result = compose_run([])
+    assert (
+        "Database odoodb not initialized, "
+        "skipping /odoo/start-entrypoint.d/000_set_base_url" not in result.stdout
+    )
+    assert (
+        "Database odoodb not initialized, "
+        "skipping /odoo/start-entrypoint.d/001_set_report_url" not in result.stdout
+    )
+
+
+@pytest.mark.skipif(
+    parsed_odoo_version() < (10, 0),
+    reason="ODOO_BASE_URL and ODOO_REPORT_URL not supported",
+)
+def test_odoo_urls_set_db_not_initialized(compose_up, parsed_odoo_version):
+    result = compose_run(
+        [], env={"ODOO_BASE_URL": "http://odoo", "ODOO_REPORT_URL": "http://odooreport"}
+    )
+    assert (
+        "Database odoodb not initialized, "
+        "skipping /odoo/start-entrypoint.d/000_set_base_url" in result.stdout
+    )
+    assert (
+        "Database odoodb not initialized, "
+        "skipping /odoo/start-entrypoint.d/001_set_report_url" in result.stdout
+    )
+
+
+@pytest.mark.skipif(
+    parsed_odoo_version() < (10, 0),
+    reason="ODOO_BASE_URL and ODOO_REPORT_URL not supported",
+)
+def test_odoo_urls_set_db_initialized(init_odoo_db, parsed_odoo_version):
+    SELECT_URL_PARAMS = (
+        "SELECT value FROM ir_config_parameter "
+        "WHERE key in ('web.base.url','web.base.url.freeze', 'report.url') "
+        "ORDER BY key"
+    )
+    result = compose_run(
+        [],
+        env={
+            "ODOO_BASE_URL": "http://odoo",
+            "ODOO_REPORT_URL": "http://odooreport",
+        },
+    )
+    assert "Setting Base URL to http://odoo" in result.stdout
+    assert "Setting Report URL to http://odooreport" in result.stdout
+    result = compose_run(["psql", "--tuples-only", "--csv", "-c", SELECT_URL_PARAMS])
+    assert "http://odooreport\nhttp://odoo\nTrue\n" in result.stdout
+    result = compose_run(
+        [],
+        env={
+            "ODOO_BASE_URL": "http://odoo2",
+            "ODOO_REPORT_URL": "http://odooreport2",
+        },
+    )
+    result = compose_run(["psql", "--tuples-only", "--csv", "-c", SELECT_URL_PARAMS])
+    assert "http://odooreport2\nhttp://odoo2\nTrue\n" in result.stdout

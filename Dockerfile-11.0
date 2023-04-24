@@ -46,7 +46,7 @@ EXPOSE 8069 8072
 COPY ./root-banner /etc
 RUN echo "cat /etc/root-banner" >> /root/.bashrc
 
-RUN mkdir -p /odoo/start-entrypoint.d
+COPY ./start-entrypoint.d /odoo/start-entrypoint.d
 COPY ./bin/entrypoint.sh /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["odoo"]
