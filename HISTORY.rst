@@ -1,3 +1,4 @@
+* 2023-04-24: remove ``confd`` and generate ``odoo.cfg`` using ``envsubst``
 * 2023-04-24: add support for ``ODOO_BASE_URL`` to set the ``web.base.url`` and
   ``web.base.url.freeze`` system parameters, and ``ODOO_REPORT_URL`` environment
   variables to set the ``report.url`` system parameter
