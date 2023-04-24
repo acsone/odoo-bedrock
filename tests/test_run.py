@@ -65,7 +65,7 @@ def test_env_vars():
         ("KWKHTMLTOPDF_SERVER_URL", "http://kwkhtmltopdf"),
         ("LANG", "C.UTF-8"),
         ("LC_ALL", "C.UTF-8"),
-        # PG* are derived from DB_* (see entrypoint.sh and docker-compose.yml)
+        # PG* are derived from DB_* (see answers.sh and docker-compose.yml)
         ("PGUSER", "odoouser"),
         ("PGPASSWORD", "odoopassword"),
         ("PGHOST", "postgres"),

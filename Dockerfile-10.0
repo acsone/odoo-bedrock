@@ -16,7 +16,6 @@ COPY ./install /tmp/install
 RUN set -x \
   && /tmp/install/pre-install.sh \
   && /tmp/install/tools.sh \
-  && /tmp/install/confd.sh \
   && /tmp/install/gosu.sh \
   && /tmp/install/python2.sh \
   && /tmp/install/lessc.sh \
@@ -30,7 +29,7 @@ RUN $PYTHONBIN -m virtualenv /odoo
 ENV PATH=/odoo/bin:$PATH
 
 # odoo config file
-COPY ./confd/${ODOO_VERSION} /etc/confd
+COPY ./templates/${ODOO_VERSION} /odoo/templates
 ENV OPENERP_SERVER=/etc/odoo.cfg
 
 # odoo data dir (filestore, etc)
