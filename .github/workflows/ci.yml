@@ -74,6 +74,9 @@ jobs:
           - ODOOVERSION: "16.0"
             PYTHONTAG: py311
             PYTHONBIN: python3.11
+          - ODOOVERSION: "17.0"
+            PYTHONTAG: py311
+            PYTHONBIN: python3.11
     steps:
       - uses: actions/checkout@v3
       - name: Set up Docker Buildx

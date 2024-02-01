@@ -21,7 +21,7 @@ Features exposed by these images
 
 * Ubuntu minimal because it's small and has recent pythons
   
-  * 22.04 for Odoo 16 images
+  * 22.04 for Odoo 16 and 17 images
   * 20.04 for Odoo 14 and 15 images
   * 18.04 for Odoo <= 13 images
 
