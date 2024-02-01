@@ -2,8 +2,9 @@
 ARG IMAGE=ghcr.io/acsone/odoo-bedrock
 ARG ODOOVERSION=16.0
 ARG PYTHONTAG=py310
+ARG DISTRO=jammy
 
-FROM $IMAGE:$ODOOVERSION-$PYTHONTAG-latest
+FROM $IMAGE:$ODOOVERSION-$PYTHONTAG-$DISTRO-latest
 
 RUN apt-get update && apt-get install -y postgresql-client --no-install-recommends
 

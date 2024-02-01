@@ -14,89 +14,92 @@ jobs:
     strategy:
       matrix:
         include:
-          - ODOOVERSION: "8.0"
-            PYTHONTAG: py27
-            PYTHONBIN: python2.7
-          - ODOOVERSION: "9.0"
-            PYTHONTAG: py27
-            PYTHONBIN: python2.7
-          - ODOOVERSION: "10.0"
-            PYTHONTAG: py27
-            PYTHONBIN: python2.7
-          - ODOOVERSION: "11.0"
-            PYTHONTAG: py35
-            PYTHONBIN: python3.5
+          # /!\ python 3.6 and 3.7 are not supported anymore
           - ODOOVERSION: "11.0"
             PYTHONTAG: py36
             PYTHONBIN: python3.6
-          - ODOOVERSION: "12.0"
-            PYTHONTAG: py35
-            PYTHONBIN: python3.5
+            DISTRO: focal
           - ODOOVERSION: "12.0"
             PYTHONTAG: py36
             PYTHONBIN: python3.6
+            DISTRO: focal
           - ODOOVERSION: "12.0"
             PYTHONTAG: py37
             PYTHONBIN: python3.7
+            DISTRO: focal
           - ODOOVERSION: "13.0"
             PYTHONTAG: py36
             PYTHONBIN: python3.6
+            DISTRO: focal
           - ODOOVERSION: "13.0"
             PYTHONTAG: py37
             PYTHONBIN: python3.7
+            DISTRO: focal
           - ODOOVERSION: "13.0"
             PYTHONTAG: py310
             PYTHONBIN: python3.10
+            DISTRO: focal
           - ODOOVERSION: "14.0"
             PYTHONTAG: py36
             PYTHONBIN: python3.6
+            DISTRO: focal
           - ODOOVERSION: "14.0"
             PYTHONTAG: py37
             PYTHONBIN: python3.7
+            DISTRO: focal
           - ODOOVERSION: "14.0"
             PYTHONTAG: py38
             PYTHONBIN: python3.8
+            DISTRO: focal
           - ODOOVERSION: "14.0"
             PYTHONTAG: py39
             PYTHONBIN: python3.9
+            DISTRO: focal
           - ODOOVERSION: "15.0"
             PYTHONTAG: py38
             PYTHONBIN: python3.8
+            DISTRO: focal
           - ODOOVERSION: "15.0"
             PYTHONTAG: py39
             PYTHONBIN: python3.9
+            DISTRO: focal
           - ODOOVERSION: "16.0"
             PYTHONTAG: py39
             PYTHONBIN: python3.9
+            DISTRO: jammy
           - ODOOVERSION: "16.0"
             PYTHONTAG: py310
             PYTHONBIN: python3.10
+            DISTRO: jammy
           - ODOOVERSION: "16.0"
             PYTHONTAG: py311
             PYTHONBIN: python3.11
+            DISTRO: jammy
           - ODOOVERSION: "17.0"
             PYTHONTAG: py311
             PYTHONBIN: python3.11
+            DISTRO: jammy
     steps:
       - uses: actions/checkout@v3
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
       - name: Login to ghcr.io
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build image
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           context: .
           file: Dockerfile-${{ matrix.ODOOVERSION }}
           build-args: |
             PYTHONBIN=${{ matrix.PYTHONBIN }}
+            DISTRO=${{ matrix.DISTRO }}
           tags: |
-            ghcr.io/${{ github.repository }}:${{ matrix.ODOOVERSION }}-${{ matrix.PYTHONTAG }}-latest
-          cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:${{ matrix.ODOOVERSION }}-${{ matrix.PYTHONTAG }}-latest
+            ghcr.io/${{ github.repository }}:${{ matrix.ODOOVERSION }}-${{ matrix.PYTHONTAG }}-${{ matrix.DISTRO }}-latest
+          cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:${{ matrix.ODOOVERSION }}-${{ matrix.PYTHONTAG }}-${{ matrix.DISTRO }}-latest
           cache-to: type=local,dest=/tmp/.buildx-cache
           load: true
       - name: Install test pre-requisites
@@ -105,16 +108,18 @@ jobs:
         env:
           ODOOVERSION: "${{ matrix.ODOOVERSION }}"
           PYTHONTAG: "${{ matrix.PYTHONTAG }}"
+          DISTRO: "${{ matrix.DISTRO }}"
         run: pytest -v tests
       - name: Push image
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           context: .
           file: Dockerfile-${{ matrix.ODOOVERSION }}
           build-args: |
             PYTHONBIN=${{ matrix.PYTHONBIN }}
+            DISTRO=${{ matrix.DISTRO }}
           tags: |
-            ghcr.io/${{ github.repository }}:${{ matrix.ODOOVERSION }}-${{ matrix.PYTHONTAG }}-latest
+            ghcr.io/${{ github.repository }}:${{ matrix.ODOOVERSION }}-${{ matrix.PYTHONTAG }}-${{ matrix.DISTRO }}-latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=inline
           push: true

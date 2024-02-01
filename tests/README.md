@@ -7,5 +7,5 @@ Prerequisites to run the test suite are `python3`, `docker-compose` and `pytest`
 installed in the python environment.
 
 Tests are launched with `pytest -v ./tests`. They start with a `docker-compose build`
-using the `PYTHONTAG` and `ODOOVERSION` environment variables to determine the base
-`odoo-bedrock` image.
+using the `PYTHONTAG`, `DISTRO` and `ODOOVERSION` environment variables to determine the
+base `odoo-bedrock` image.

@@ -1,4 +1,7 @@
-FROM docker.io/ubuntu:20.04
+ARG DISTRO=focal
+
+FROM docker.io/ubuntu:$DISTRO
+
 MAINTAINER ACSONE SA/NV
 
 ARG PYTHONBIN=python3.8
