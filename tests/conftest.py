@@ -17,6 +17,8 @@ def compose_build():
         cmd.extend(["--build-arg", f"ODOOVERSION={os.environ['ODOOVERSION']}"])
     if "PYTHONTAG" in os.environ:
         cmd.extend(["--build-arg", f"PYTHONTAG={os.environ['PYTHONTAG']}"])
+    if "DISTRO" in os.environ:
+        cmd.extend(["--build-arg", f"DISTRO={os.environ['DISTRO']}"])
     subprocess.run(cmd, check=True, cwd=HERE)
 
 

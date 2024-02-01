@@ -1,4 +1,7 @@
-FROM ubuntu:18.04
+ARG DISTRO=bionic
+
+FROM docker.io/ubuntu:$DISTRO
+
 MAINTAINER ACSONE SA/NV
 
 ARG PYTHONBIN=python2.7

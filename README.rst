@@ -12,6 +12,14 @@ structure.
 
 .. contents::
 
+Available image tags
+====================
+
+The CI of this projects build regularly for some combination of Odoo version, python
+version and Ubuntu version.
+
+The supported combinations are visible in the [build matrix](.github/workflows/ci.yml).
+
 Features exposed by these images
 ================================
 
@@ -21,10 +29,6 @@ Features exposed by these images
 
 * Ubuntu minimal because it's small and has recent pythons
   
-  * 22.04 for Odoo 16 and 17 images
-  * 20.04 for Odoo 14 and 15 images
-  * 18.04 for Odoo <= 13 images
-
 * ``python``, obviously. 
 * An entrypoint that generates the Odoo config file (``$ODOO_RC``) from environment
   variables (see the list of supported variables below).
