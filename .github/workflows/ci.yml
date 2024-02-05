@@ -27,6 +27,10 @@ jobs:
             PYTHONTAG: py37
             PYTHONBIN: python3.7
             DISTRO: focal
+          - ODOOVERSION: "12.0"
+            PYTHONTAG: py39
+            PYTHONBIN: python3.9
+            DISTRO: jammy
           - ODOOVERSION: "13.0"
             PYTHONTAG: py36
             PYTHONBIN: python3.6
