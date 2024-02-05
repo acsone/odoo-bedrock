@@ -15,10 +15,10 @@ structure.
 Available image tags
 ====================
 
-The CI of this projects build regularly for some combination of Odoo version, python
+The CI of this project builds regularly for some combinations of Odoo version, python
 version and Ubuntu version.
 
-The supported combinations are visible in the [build matrix](.github/workflows/ci.yml).
+The supported combinations are visible in the [build matrix](./.github/workflows/ci.yml).
 
 Features exposed by these images
 ================================
