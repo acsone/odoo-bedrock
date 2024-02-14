@@ -67,6 +67,10 @@ jobs:
             PYTHONTAG: py39
             PYTHONBIN: python3.9
             DISTRO: focal
+          - ODOOVERSION: "15.0"
+            PYTHONTAG: py39
+            PYTHONBIN: python3.9
+            DISTRO: jammy
           - ODOOVERSION: "16.0"
             PYTHONTAG: py39
             PYTHONBIN: python3.9
