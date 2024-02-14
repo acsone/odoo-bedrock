@@ -1,0 +1,1 @@
+\set PROMPT1 %/(`echo $RUNNING_ENV`) =>
