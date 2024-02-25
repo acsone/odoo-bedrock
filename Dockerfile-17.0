@@ -29,7 +29,8 @@ RUN set -x \
 # isolate from system python libraries
 RUN set -x \
   && $PYTHONBIN -m venv /odoo \
-  && /odoo/bin/pip install -U pip wheel setuptools
+  && /odoo/bin/pip install -U pip \
+  && /odoo/bin/pip uninstall -y setuptools wheel
 ENV PATH=/odoo/bin:$PATH
 
 # odoo config file
