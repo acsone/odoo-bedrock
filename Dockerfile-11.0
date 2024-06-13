@@ -49,7 +49,10 @@ COPY .psqlrc /root/.psqlrc
 
 # root banner
 COPY ./root-banner /etc
-RUN echo "cat /etc/root-banner" >> /root/.bashrc
+
+# bashrc
+COPY .bashrc /tmp
+RUN cat /tmp/.bashrc >> /root/.bashrc
 
 COPY ./start-entrypoint.d /odoo/start-entrypoint.d
 COPY ./bin/entrypoint.sh /usr/local/bin/entrypoint.sh
