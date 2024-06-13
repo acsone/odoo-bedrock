@@ -29,7 +29,7 @@ Features exposed by these images
 
 * Ubuntu minimal because it's small and has recent pythons
   
-* ``python``, obviously. 
+* ``python``, obviously, in an activated virtual environment.
 * An entrypoint that generates the Odoo config file (``$ODOO_RC``) from environment
   variables (see the list of supported variables below).
 * ``/usr/local/bin/wkhtmltopdf`` is the `kwkhtmltopdf
