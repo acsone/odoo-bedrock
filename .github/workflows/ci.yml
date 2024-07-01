@@ -14,6 +14,10 @@ jobs:
     strategy:
       matrix:
         include:
+          - ODOOVERSION: "10.0"
+            PYTHONTAG: py27
+            PYTHONBIN: python2.7
+            DISTRO: jammy
           # /!\ python 3.6 and 3.7 are not supported anymore
           - ODOOVERSION: "11.0"
             PYTHONTAG: py36
