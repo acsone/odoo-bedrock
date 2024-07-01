@@ -1,4 +1,4 @@
-ARG DISTRO=bionic
+ARG DISTRO=jammy
 
 FROM docker.io/ubuntu:$DISTRO
 
