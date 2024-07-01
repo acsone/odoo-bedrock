@@ -32,6 +32,7 @@ RUN set -x \
   && $PYTHONBIN -m venv /odoo \
   && /odoo/bin/pip install -U pip wheel setuptools
 ENV PATH=/odoo/bin:$PATH
+ENV VIRTUAL_ENV=/odoo
 
 # odoo config file
 COPY ./templates/${ODOO_VERSION} /odoo/templates
