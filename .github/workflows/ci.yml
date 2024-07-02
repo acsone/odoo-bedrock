@@ -87,9 +87,17 @@ jobs:
             PYTHONTAG: py311
             PYTHONBIN: python3.11
             DISTRO: jammy
+          - ODOOVERSION: "16.0"
+            PYTHONTAG: py312
+            PYTHONBIN: python3.12
+            DISTRO: jammy
           - ODOOVERSION: "17.0"
             PYTHONTAG: py311
             PYTHONBIN: python3.11
+            DISTRO: jammy
+          - ODOOVERSION: "17.0"
+            PYTHONTAG: py312
+            PYTHONBIN: python3.12
             DISTRO: jammy
     steps:
       - uses: actions/checkout@v4
