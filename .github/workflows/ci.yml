@@ -92,6 +92,10 @@ jobs:
             PYTHONBIN: python3.12
             DISTRO: jammy
           - ODOOVERSION: "17.0"
+            PYTHONTAG: py310
+            PYTHONBIN: python3.10
+            DISTRO: jammy
+          - ODOOVERSION: "17.0"
             PYTHONTAG: py311
             PYTHONBIN: python3.11
             DISTRO: jammy
