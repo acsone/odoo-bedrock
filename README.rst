@@ -103,40 +103,63 @@ is installed (which is not the case by default):
   ``web.base.urL.freeze`` to ``True``.
 * ``ODOO_REPORT_URL`` sets the ``report.url`` system parameter.
 
-Examples
-========
+Example
+=======
 
-These are typical Dockerfiles derived from this image, provided here
+This is a typical Dockerfile derived from this image, provided here
 for inspiration.
 
-Installing addons and Odoo from source
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Assume you have odoo source code in ``./src/odoo`` and your addons
-in ``myaddons``. You can create the following Dockerfile:
+Assume you have your custom addons in ``myaddons``. You can create the following
+Dockerfile:
 
 .. code:: dockerfile
 
-  FROM ghcr.io/acsone/odoo-bedrock:14.0-py38-latest
+  ARG odoo_version=17.0
 
-  COPY ./src/odoo /odoo/src/odoo
-  RUN \
-    pip install --no-cache-dir \
-      -r /odoo/src/odoo/requirements.txt \
-      -f https://wheelhouse.acsone.eu/manylinux2014 \
-    && pip install -e /odoo/src/odoo
+  ###########################################################################
+  # build stage, install Odoo
 
-  COPY ./myaddons /odoo/myaddons
+  FROM ghcr.io/acsone/odoo-bedrock:${odoo_version}-py312-jammy-latest AS build
 
-  ENV ADDONS_PATH=/odoo/src/odoo/addons,/odoo/src/odoo/odoo/addons,/odoo/myaddons
+  ARG odoo_version
 
-Note:
+  # Install build dependencies
+  RUN apt -yq update \
+  && apt -yq install --no-install-recommends \
+     curl \
+     python3.12-dev \
+     build-essential \
+     libpq-dev \
+     libldap2-dev \
+     libsasl2-dev \
+  && rm -rf /var/lib/apt/lists/*
 
-- the use of ``-f https://wheelhouse.acsone.eu/manylinux2014`` to
-  find binary wheels that work without additional system dependencies.
-  This is not mandadatory but helps having an image without build tools.
-- for python2.7 Odoo versions (8.0, 9.0 and 10.0) please use
-  ``-f https://wheelhouse.acsone.eu/manylinux1``
+  ADD https://raw.githubusercontent.com/odoo/odoo/${odoo_version}/requirements.txt /odoo/src/odoo/requirements.txt
+  RUN --mount=type=cache,target=/root/.cache/pip \
+      pip install -r /odoo/src/odoo/requirements.txt
+
+  ADD https://api.github.com/repos/odoo/odoo/git/refs/heads/${odoo_version} /tmp/odoo_version.json
+  RUN curl -sSL https://github.com/odoo/odoo/tarball/${odoo_version} | tar -C /odoo/src/odoo --strip-components=1 -xz
+  RUN --mount=type=cache,target=/root/.cache/pip \
+      pip install -e /odoo/src/odoo
+
+  ###########################################################################
+  # runtime stage
+
+  FROM ghcr.io/acsone/odoo-bedrock:${odoo_version}-py312-jammy-latest
+
+  # Install runtime system dependencies
+  RUN apt -yq update \
+  && apt -yq install --no-install-recommends \
+     postgresql-client \
+  && rm -rf /var/lib/apt/lists/*
+
+  # Copy venv from build stage to runtime stage
+  COPY --from=build /odoo /odoo
+
+  COPY ./myaddons /odoo/src/myaddons
+
+  ENV ADDONS_PATH=/odoo/src/odoo/addons,/odoo/src/odoo/odoo/addons,/odoo/src/myaddons
 
 Credits
 =======
