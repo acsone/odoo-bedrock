@@ -170,7 +170,5 @@ for most environment variables, the odoo config file templates,
 and entrypoint.sh.
 This is by design, in order to facilitate possible future convergence.
 
-Contributors
-~~~~~~~~~~~~
+`Contributors <https://github.com/acsone/odoo-bedrock/graphs/contributors>`_.
 
-* Stéphane Bidoul <stephane.bidoul@acsone.eu>
