@@ -15,7 +15,7 @@ def parsed_odoo_version():
 
 
 def compose_run(command, env=None, check=True, volumes=None):
-    cmd = ["docker-compose", "run", "--rm"]
+    cmd = ["docker", "compose", "run", "--rm"]
     if env:
         for key, value in env.items():
             cmd.extend(["-e", f"{key}={value}"])

@@ -12,7 +12,7 @@ HERE = Path(__file__).parent
 
 @pytest.fixture(scope="session", autouse=True)
 def compose_build():
-    cmd = ["docker-compose", "build"]
+    cmd = ["docker", "compose", "build"]
     if "ODOOVERSION" in os.environ:
         cmd.extend(["--build-arg", f"ODOOVERSION={os.environ['ODOOVERSION']}"])
     if "PYTHONTAG" in os.environ:
@@ -35,13 +35,13 @@ def parsed_odoo_version(odoo_version):
 
 @pytest.fixture(scope="session")
 def compose_up(compose_build):
-    subprocess.run(["docker-compose", "up", "-d"], check=True, cwd=HERE)
+    subprocess.run(["docker", "compose", "up", "-d"], check=True, cwd=HERE)
     try:
         while compose_run(["pg_isready"], check=False).returncode != 0:
             time.sleep(2)
         yield
     finally:
-        subprocess.run(["docker-compose", "down"], check=True, cwd=HERE)
+        subprocess.run(["docker", "compose", "down"], check=True, cwd=HERE)
 
 
 @pytest.fixture
