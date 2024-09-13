@@ -103,6 +103,10 @@ jobs:
             PYTHONTAG: py312
             PYTHONBIN: python3.12
             DISTRO: jammy
+          - ODOOVERSION: "18.0"
+            PYTHONTAG: py312
+            PYTHONBIN: python3.12
+            DISTRO: noble
     steps:
       - uses: actions/checkout@v4
       - name: Set up Docker Buildx
