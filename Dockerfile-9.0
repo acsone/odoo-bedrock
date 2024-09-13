@@ -2,7 +2,7 @@ ARG DISTRO=jammy
 
 FROM docker.io/ubuntu:$DISTRO
 
-MAINTAINER ACSONE SA/NV
+LABEL org.opencontainers.image.authors="ACSONE SA/NV"
 
 ARG PYTHONBIN=python2.7
 
