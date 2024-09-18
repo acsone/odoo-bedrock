@@ -118,7 +118,7 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           file: Dockerfile-${{ matrix.ODOOVERSION }}
@@ -139,7 +139,7 @@ jobs:
           DISTRO: "${{ matrix.DISTRO }}"
         run: pytest -v tests
       - name: Push image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           file: Dockerfile-${{ matrix.ODOOVERSION }}
