@@ -131,6 +131,7 @@ jobs:
           ODOOVERSION: "${{ matrix.ODOOVERSION }}"
           PYTHONTAG: "${{ matrix.PYTHONTAG }}"
           DISTRO: "${{ matrix.DISTRO }}"
+          BUILDER: "default"
         run: pytest -v tests
       - name: Login to ghcr.io
         uses: docker/login-action@v3

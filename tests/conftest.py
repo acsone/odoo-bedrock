@@ -19,6 +19,8 @@ def compose_build():
         cmd.extend(["--build-arg", f"PYTHONTAG={os.environ['PYTHONTAG']}"])
     if "DISTRO" in os.environ:
         cmd.extend(["--build-arg", f"DISTRO={os.environ['DISTRO']}"])
+    if "BUILDER" in os.environ:
+        cmd.extend(["--builder", os.environ["BUILDER"]])
     subprocess.run(cmd, check=True, cwd=HERE)
 
 
