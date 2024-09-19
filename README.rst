@@ -141,7 +141,7 @@ Dockerfile:
   ADD https://api.github.com/repos/odoo/odoo/git/refs/heads/${odoo_version} /tmp/odoo_version.json
   RUN curl -sSL https://github.com/odoo/odoo/tarball/${odoo_version} | tar -C /odoo/src/odoo --strip-components=1 -xz
   RUN --mount=type=cache,target=/root/.cache/pip \
-      pip install -e /odoo/src/odoo
+      pip install -e /odoo/src/odoo --config-setting editable_mode=compat
 
   ###########################################################################
   # runtime stage
