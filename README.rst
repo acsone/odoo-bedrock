@@ -70,15 +70,19 @@ The following environment variables are used to generate the Odoo configuration 
 * ``ADMIN_PASSWD``
 * ``DB_FILTER``
 * ``DB_HOST``
+* ``DB_REPLICA_HOST`` (>=18)
 * ``DB_MAXCONN``
 * ``DB_NAME``
 * ``DB_PASSWORD``
 * ``DB_PORT``
+* ``DB_REPLICA_PORT`` (>=18)
 * ``DB_SSLMODE``
 * ``DB_TEMPLATE``
 * ``DB_USER``
 * ``LIMIT_MEMORY_HARD``
+* ``LIMIT_MEMORY_HARD_GEVENT`` (>=18)
 * ``LIMIT_MEMORY_SOFT``
+* ``LIMIT_MEMORY_SOFT_GEVENT`` (>=18)
 * ``LIMIT_REQUEST``
 * ``LIMIT_TIME_CPU``
 * ``LIMIT_TIME_REAL``
