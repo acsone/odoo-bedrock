@@ -129,6 +129,7 @@ def test_odoo_cfg_env_vars():
         "DB_HOST",
         "DB_REPLICA_HOST",
         "DB_MAXCONN",
+        "DB_MAXCONN_GEVENT",
         "DB_NAME",
         "DB_PASSWORD",
         "DB_PORT",
