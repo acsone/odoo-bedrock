@@ -72,6 +72,7 @@ The following environment variables are used to generate the Odoo configuration 
 * ``DB_HOST``
 * ``DB_REPLICA_HOST`` (>=18)
 * ``DB_MAXCONN``
+* ``DB_MAXCONN_GEVENT`` (>=17)
 * ``DB_NAME``
 * ``DB_PASSWORD``
 * ``DB_PORT``
