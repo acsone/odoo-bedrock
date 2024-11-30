@@ -15,21 +15,20 @@ ENV \
   KWKHTMLTOPDF_SERVER_URL=http://kwkhtmltopdf
 
 
-COPY ./install /tmp/install
-RUN set -x \
+RUN --mount=type=bind,source=./install,target=/tmp/install \
+  set -x \
   && /tmp/install/pre-install.sh \
   && /tmp/install/tools.sh \
   && /tmp/install/gosu.sh \
   && /tmp/install/python3.sh \
   && /tmp/install/wkhtmltopdf.sh \
   && /tmp/install/pgdg.sh \
-  && /tmp/install/post-install-clean.sh \
-  && rm -r /tmp/install
+  && /tmp/install/post-install-clean.sh
 
 # isolate from system python libraries
 RUN set -x \
   && $PYTHONBIN -m venv /odoo \
-  && /odoo/bin/pip install -U pip
+  && /odoo/bin/pip install --no-cache-dir -U pip
 ENV PATH=/odoo/bin:$PATH
 ENV VIRTUAL_ENV=/odoo
 
