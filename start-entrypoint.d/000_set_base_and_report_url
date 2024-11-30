@@ -1,0 +1,121 @@
+#!/usr/bin/env python
+"""Set web.base.url and report.url.
+
+This script sets the web.base.url parameter from ODOO_BASE_URL and the
+report.url parameter from ODOO_REPORT_URL parameters in the databases mentioned
+in DB_NAME environment variable. It also sets web.base.url.freeze to True if
+ODOO_BASE_URL is set.
+
+This scripts does nothing if ODOO_BASE_URL and ODOO_REPORT_URL are not set or if
+psycopg2 is not installed.
+
+Databases that do not exist or are not initialized are skipped.
+"""
+from __future__ import print_function
+
+import os
+
+
+def main():
+    odoo_base_url = os.environ.get("ODOO_BASE_URL")
+    odoo_report_url = os.environ.get("ODOO_REPORT_URL")
+    if not odoo_base_url and not odoo_report_url:
+        return
+
+    try:
+        import psycopg2
+    except ImportError:
+        print("psycopg2 is not installed, not setting web.base.url nor report.url.")
+        return
+
+    db_names = os.environ.get("DB_NAME")
+    if not db_names:
+        print("DB_NAME is not set, not setting web.base.url nor report.url.")
+        return
+
+    for db_name in db_names.split(","):
+        db_name = db_name.strip()
+        if not db_name:
+            continue
+        conn = psycopg2.connect(dbname="postgres")
+        try:
+            with conn.cursor() as cr:
+                cr.execute("SELECT 1 FROM pg_database WHERE datname=%s", (db_name,))
+                if not cr.fetchone():
+                    print(
+                        "Database",
+                        db_name,
+                        "does not exist, not setting web.base.url nor report.url.",
+                    )
+        finally:
+            conn.close()
+        conn = psycopg2.connect(dbname=db_name)
+        try:
+            conn.autocommit = True
+            with conn.cursor() as cr:
+                cr.execute(
+                    "SELECT 1 FROM pg_tables WHERE tablename='ir_config_parameter'"
+                )
+                if not cr.fetchone():
+                    print(
+                        "Database",
+                        db_name,
+                        "not initialized, not setting web.base.url nor report.url.",
+                    )
+                    return
+                if odoo_base_url:
+                    print("Setting Base URL to", odoo_base_url, "for database", db_name)
+                    cr.execute(
+                        """\
+                        WITH update_param AS (
+                            UPDATE ir_config_parameter
+                            SET value = %(odoo_base_url)s
+                            WHERE key = 'web.base.url'
+                            RETURNING *
+                        )
+                        INSERT INTO ir_config_parameter
+                        (value, key, create_uid, write_uid, create_date, write_date)
+                        SELECT %(odoo_base_url)s, 'web.base.url', 1, 1, now(), now()
+                        WHERE NOT EXISTS (SELECT * FROM update_param);
+
+                        WITH update_param AS (
+                            UPDATE ir_config_parameter
+                            SET value = 'True'
+                            WHERE key = 'web.base.url.freeze'
+                            RETURNING *
+                        )
+                        INSERT INTO ir_config_parameter
+                        (value, key, create_uid, write_uid, create_date, write_date)
+                        SELECT 'True', 'web.base.url.freeze', 1, 1, now(), now()
+                        WHERE NOT EXISTS (SELECT * FROM update_param);
+                        """,
+                        {"odoo_base_url": odoo_base_url},
+                    )
+                if odoo_report_url:
+                    print(
+                        "Setting Report URL to",
+                        odoo_report_url,
+                        "for database",
+                        db_name,
+                    )
+                    cr.execute(
+                        """\
+                        WITH update_param AS (
+                            UPDATE ir_config_parameter
+                            SET value = %(odoo_report_url)s
+                            WHERE key = 'report.url'
+                            RETURNING *
+                        )
+                        INSERT INTO ir_config_parameter
+                        (value, key, create_uid, write_uid, create_date, write_date)
+                        SELECT %(odoo_report_url)s, 'report.url', 1, 1, now(), now()
+                        WHERE NOT EXISTS (SELECT * FROM update_param);
+                        """,
+                        {"odoo_report_url": odoo_report_url},
+                    )
+        finally:
+            conn.close()
+
+
+if __name__ == "__main__":
+    main()
