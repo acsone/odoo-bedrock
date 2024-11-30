@@ -58,9 +58,10 @@ For more details, read [./bin/entrypoint.sh](./bin/entrypoint.sh).
 ### Configuration
 
 The following environment variables are used to generate the Odoo
-configuration file in `$ODOO_RC`:
+configuration file in `$ODOO_RC`.
 
-- `ADDITIONAL_ODOO_RC`
+Odoo options:
+
 - `ADDONS_PATH`
 - `ADMIN_PASSWD`
 - `DB_FILTER`
@@ -89,12 +90,17 @@ configuration file in `$ODOO_RC`:
 - `LOG_LEVEL`
 - `LOGFILE`
 - `MAX_CRON_THREADS`
-- `RUNNING_ENV`
 - `SERVER_WIDE_MODULES` (\>=10)
 - `SYSLOG`
 - `UNACCENT`
 - `WITHOUT_DEMO`
 - `WORKERS`
+
+Other variables that populate `$ODOO_RC`:
+
+- `RUNNING_ENV`: sets `options.running_env` for use by the [OCA
+  server_environment](https://github.com/OCA/server-env) module.
+- `ADDITIONAL_ODOO_RC`: is appended verbatim a the end of `$ODOO_RC˘.
 
 The following environment variables are processed by the entrypoint, if
 the psql client is installed (which is not the case by default):
