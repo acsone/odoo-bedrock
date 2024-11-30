@@ -29,7 +29,7 @@ RUN set -x \
 # isolate from system python libraries
 RUN set -x \
   && $PYTHONBIN -m venv /odoo \
-  && /odoo/bin/pip install -U pip
+  && /odoo/bin/pip install --no-cache-dir -U pip
 ENV PATH=/odoo/bin:$PATH
 ENV VIRTUAL_ENV=/odoo
 
