@@ -8,17 +8,13 @@ a derived image that adds your Odoo and addons. This image does not
 mandate any particular installation method for Odoo and addons, nor does
 it impose any constraint on your project structure.
 
-<div class="contents">
-
-</div>
-
 ## Available image tags
 
 The CI of this project builds regularly for some combinations of Odoo
 version, python version and Ubuntu version.
 
-The supported combinations are visible in the \[build
-matrix\](./.github/workflows/ci.yml).
+The supported combinations are visible in the [build
+matrix](./.github/workflows/ci.yml).
 
 ## Features exposed by these images
 
@@ -62,9 +58,10 @@ For more details, read [./bin/entrypoint.sh](./bin/entrypoint.sh).
 ### Configuration
 
 The following environment variables are used to generate the Odoo
-configuration file in `$ODOO_RC`:
+configuration file in `$ODOO_RC`.
 
-- `ADDITIONAL_ODOO_RC`
+Odoo options:
+
 - `ADDONS_PATH`
 - `ADMIN_PASSWD`
 - `DB_FILTER`
@@ -93,12 +90,17 @@ configuration file in `$ODOO_RC`:
 - `LOG_LEVEL`
 - `LOGFILE`
 - `MAX_CRON_THREADS`
-- `RUNNING_ENV`
 - `SERVER_WIDE_MODULES` (\>=10)
 - `SYSLOG`
 - `UNACCENT`
 - `WITHOUT_DEMO`
 - `WORKERS`
+
+Other variables that populate `$ODOO_RC`:
+
+- `RUNNING_ENV`: sets `options.running_env` for use by the [OCA
+  server_environment](https://github.com/OCA/server-env) module.
+- `ADDITIONAL_ODOO_RC`: is appended verbatim a the end of `$ODOO_RC˘.
 
 The following environment variables are processed by the entrypoint, if
 the psql client is installed (which is not the case by default):
@@ -115,7 +117,7 @@ inspiration.
 Assume you have your custom addons in `myaddons`. You can create the
 following Dockerfile:
 
-``` dockerfile
+```dockerfile
 ARG odoo_version=17.0
 
 ###########################################################################
