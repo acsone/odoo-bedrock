@@ -100,10 +100,10 @@ Other variables that populate `$ODOO_RC`:
 
 - `RUNNING_ENV`: sets `options.running_env` for use by the [OCA
   server_environment](https://github.com/OCA/server-env) module.
-- `ADDITIONAL_ODOO_RC`: is appended verbatim a the end of `$ODOO_RC˘.
+- `ADDITIONAL_ODOO_RC`: is appended verbatim a the end of `$ODOO_RC`.
 
 The following environment variables are processed by the entrypoint, if
-the psql client is installed (which is not the case by default):
+the `psql` client is installed (which is not the case by default):
 
 - `ODOO_BASE_URL` sets the `web.base.url` system parameter, and forces
   `web.base.urL.freeze` to `True`.
