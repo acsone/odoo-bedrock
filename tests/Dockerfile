@@ -1,4 +1,6 @@
 # Dockerfile to run tests
+
+# /!\ These defaults must match those in conftest.py
 ARG IMAGE=ghcr.io/acsone/odoo-bedrock
 ARG ODOOVERSION=16.0
 ARG PYTHONTAG=py310
