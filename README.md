@@ -8,17 +8,13 @@ a derived image that adds your Odoo and addons. This image does not
 mandate any particular installation method for Odoo and addons, nor does
 it impose any constraint on your project structure.
 
-<div class="contents">
-
-</div>
-
 ## Available image tags
 
 The CI of this project builds regularly for some combinations of Odoo
 version, python version and Ubuntu version.
 
-The supported combinations are visible in the \[build
-matrix\](./.github/workflows/ci.yml).
+The supported combinations are visible in the [build
+matrix](./.github/workflows/ci.yml).
 
 ## Features exposed by these images
 
@@ -115,7 +111,7 @@ inspiration.
 Assume you have your custom addons in `myaddons`. You can create the
 following Dockerfile:
 
-``` dockerfile
+```dockerfile
 ARG odoo_version=17.0
 
 ###########################################################################
