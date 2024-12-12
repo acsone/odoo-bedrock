@@ -4,6 +4,7 @@ FROM docker.io/ubuntu:$DISTRO
 
 LABEL org.opencontainers.image.authors="ACSONE SA/NV"
 
+ARG DISTRO
 ARG PYTHONBIN=python3.10
 
 ENV \
