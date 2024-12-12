@@ -4,6 +4,7 @@ FROM docker.io/ubuntu:$DISTRO
 
 LABEL org.opencontainers.image.authors="ACSONE SA/NV"
 
+ARG DISTRO
 ARG PYTHONBIN=python3.11
 
 ENV \
@@ -15,6 +16,7 @@ ENV \
   KWKHTMLTOPDF_SERVER_URL=http://kwkhtmltopdf
 
 
+ADD https://ppa.launchpadcontent.net/deadsnakes/ppa/ubuntu/dists/$DISTRO/Release /tmp/deadsnakes
 RUN --mount=type=bind,source=./install,target=/tmp/install \
   set -x \
   && /tmp/install/pre-install.sh \
