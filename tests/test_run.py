@@ -172,33 +172,17 @@ def test_odoo_cfg_env_vars():
     parsed_odoo_version() < (10, 0),
     reason="ODOO_BASE_URL and ODOO_REPORT_URL not supported",
 )
-def test_odoo_urls_not_set(compose_up):
-    result = compose_run([])
-    assert (
-        "Database odoodb not initialized, "
-        "skipping /odoo/start-entrypoint.d/000_set_base_url" not in result.stdout
-    )
-    assert (
-        "Database odoodb not initialized, "
-        "skipping /odoo/start-entrypoint.d/001_set_report_url" not in result.stdout
-    )
-
-
-@pytest.mark.skipif(
-    parsed_odoo_version() < (10, 0),
-    reason="ODOO_BASE_URL and ODOO_REPORT_URL not supported",
-)
 def test_odoo_urls_set_db_not_initialized(compose_up, parsed_odoo_version):
     result = compose_run(
-        [], env={"ODOO_BASE_URL": "http://odoo", "ODOO_REPORT_URL": "http://odooreport"}
+        [],
+        env={
+            "ODOO_BASE_URL": "http://odoo",
+            "ODOO_REPORT_URL": "http://odooreport",
+        },
     )
     assert (
         "Database odoodb not initialized, "
-        "skipping /odoo/start-entrypoint.d/000_set_base_url" in result.stdout
-    )
-    assert (
-        "Database odoodb not initialized, "
-        "skipping /odoo/start-entrypoint.d/001_set_report_url" in result.stdout
+        "not setting web.base.url nor report.url." in result.stdout
     )
 
 
@@ -219,8 +203,10 @@ def test_odoo_urls_set_db_initialized(init_odoo_db, parsed_odoo_version):
             "ODOO_REPORT_URL": "http://odooreport",
         },
     )
-    assert "Setting Base URL to http://odoo" in result.stdout
-    assert "Setting Report URL to http://odooreport" in result.stdout
+    assert "Setting Base URL to http://odoo for database odoodb" in result.stdout
+    assert (
+        "Setting Report URL to http://odooreport for database odoodb" in result.stdout
+    )
     result = compose_run(["psql", "--tuples-only", "--csv", "-c", SELECT_URL_PARAMS])
     assert "http://odooreport\nhttp://odoo\nTrue\n" in result.stdout
     result = compose_run(

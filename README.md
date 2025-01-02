@@ -103,7 +103,7 @@ Other variables that populate `$ODOO_RC`:
 - `ADDITIONAL_ODOO_RC`: is appended verbatim a the end of `$ODOO_RC`.
 
 The following environment variables are processed by the entrypoint, if
-the `psql` client is installed (which is not the case by default):
+`pyscopg2` is available:
 
 - `ODOO_BASE_URL` sets the `web.base.url` system parameter, and forces
   `web.base.urL.freeze` to `True`.
