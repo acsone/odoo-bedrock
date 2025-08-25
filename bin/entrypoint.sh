@@ -24,9 +24,9 @@ if [ "$BASE_CMD" = "odoo" ] || [ "$BASE_CMD" = "odoo.py" ] || [ "$BASE_CMD" = "o
   START_ENTRYPOINT_DIR=/odoo/start-entrypoint.d
   if [ -d "$START_ENTRYPOINT_DIR" ]; then
     if [ -z "${NOGOSU:-}" ] ; then
-      gosu odoo run-parts --verbose "$START_ENTRYPOINT_DIR"
+      gosu odoo run-parts --exit-on-error --verbose "$START_ENTRYPOINT_DIR"
     else
-      run-parts --verbose "$START_ENTRYPOINT_DIR"
+      run-parts --exit-on-error --verbose "$START_ENTRYPOINT_DIR"
     fi
   fi
 fi

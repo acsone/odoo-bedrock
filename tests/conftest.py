@@ -9,25 +9,65 @@ from .testlib import compose_run
 
 HERE = Path(__file__).parent
 
-
-@pytest.fixture(scope="session", autouse=True)
-def compose_build():
-    cmd = ["docker", "compose", "build"]
-    if "ODOOVERSION" in os.environ:
-        cmd.extend(["--build-arg", f"ODOOVERSION={os.environ['ODOOVERSION']}"])
-    if "PYTHONTAG" in os.environ:
-        cmd.extend(["--build-arg", f"PYTHONTAG={os.environ['PYTHONTAG']}"])
-    if "DISTRO" in os.environ:
-        cmd.extend(["--build-arg", f"DISTRO={os.environ['DISTRO']}"])
-    if "BUILDER" in os.environ:
-        cmd.extend(["--builder", os.environ["BUILDER"]])
-    subprocess.run(cmd, check=True, cwd=HERE)
+# /!\ These defaults must match those in Dockerfile
+DEFAULT_TEST_IMAGE = "ghcr.io/acsone/odoo-bedrock"
+DEFAULT_TEST_ODOOVERSION = "16.0"
+DEFAULT_TEST_PYTHONTAG = "py310"
+DEFAULT_TEST_DISTRO = "jammy"
 
 
 @pytest.fixture(scope="session")
 def odoo_version():
-    # /!\ Default must be the same as the ODOOVERSION build arg in test Dockerfile
-    return os.environ.get("ODOOVERSION", "16.0")
+    return os.environ.get("ODOOVERSION", DEFAULT_TEST_ODOOVERSION)
+
+
+@pytest.fixture(scope="session")
+def python_tag():
+    return os.environ.get("PYTHONTAG", DEFAULT_TEST_PYTHONTAG)
+
+
+@pytest.fixture(scope="session")
+def python_bin(python_tag):
+    return f"python{python_tag[2:3]}.{python_tag[3:]}"
+
+
+@pytest.fixture(scope="session")
+def distro():
+    return os.environ.get("DISTRO", DEFAULT_TEST_DISTRO)
+
+
+@pytest.fixture(scope="session", autouse=True)
+def compose_build(odoo_version, python_tag, python_bin, distro):
+    docker_build_options = [
+        "--build-arg",
+        f"ODOOVERSION={odoo_version}",
+        "--build-arg",
+        f"PYTHONTAG={python_tag}",
+        "--build-arg",
+        f"PYTHONBIN={python_bin}",
+        "--build-arg",
+        f"DISTRO={distro}",
+    ]
+    if "BUILDER" in os.environ:
+        docker_build_options.extend(["--builder", os.environ["BUILDER"]])
+    cmd = [
+        "docker",
+        "build",
+        "--file",
+        f"Dockerfile-{odoo_version}",
+        "--tag",
+        f"{DEFAULT_TEST_IMAGE}:{odoo_version}-{python_tag}-{distro}-latest",
+        *docker_build_options,
+        ".",
+    ]
+    subprocess.run(cmd, check=True, cwd=HERE.parent)
+    cmd = [
+        "docker",
+        "compose",
+        "build",
+        *docker_build_options,
+    ]
+    subprocess.run(cmd, check=True, cwd=HERE)
 
 
 @pytest.fixture(scope="session")

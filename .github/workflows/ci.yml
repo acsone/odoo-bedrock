@@ -18,59 +18,43 @@ jobs:
             PYTHONTAG: py27
             PYTHONBIN: python2.7
             DISTRO: jammy
-          # /!\ python 3.6 and 3.7 are not supported anymore
-          - ODOOVERSION: "11.0"
-            PYTHONTAG: py36
-            PYTHONBIN: python3.6
-            DISTRO: focal
-          - ODOOVERSION: "12.0"
-            PYTHONTAG: py36
-            PYTHONBIN: python3.6
-            DISTRO: focal
+          # /!\ python 3.7 and 3.8 are not supported anymore
           - ODOOVERSION: "12.0"
             PYTHONTAG: py37
             PYTHONBIN: python3.7
-            DISTRO: focal
+            DISTRO: jammy
           - ODOOVERSION: "12.0"
             PYTHONTAG: py39
             PYTHONBIN: python3.9
             DISTRO: jammy
           - ODOOVERSION: "13.0"
-            PYTHONTAG: py36
-            PYTHONBIN: python3.6
-            DISTRO: focal
-          - ODOOVERSION: "13.0"
             PYTHONTAG: py37
             PYTHONBIN: python3.7
-            DISTRO: focal
+            DISTRO: jammy
           - ODOOVERSION: "13.0"
             PYTHONTAG: py310
             PYTHONBIN: python3.10
-            DISTRO: focal
-          - ODOOVERSION: "14.0"
-            PYTHONTAG: py36
-            PYTHONBIN: python3.6
-            DISTRO: focal
+            DISTRO: jammy
           - ODOOVERSION: "14.0"
             PYTHONTAG: py37
             PYTHONBIN: python3.7
-            DISTRO: focal
+            DISTRO: jammy
           - ODOOVERSION: "14.0"
             PYTHONTAG: py38
             PYTHONBIN: python3.8
-            DISTRO: focal
+            DISTRO: jammy
           - ODOOVERSION: "14.0"
             PYTHONTAG: py39
             PYTHONBIN: python3.9
-            DISTRO: focal
+            DISTRO: jammy
           - ODOOVERSION: "15.0"
             PYTHONTAG: py38
             PYTHONBIN: python3.8
-            DISTRO: focal
+            DISTRO: jammy
           - ODOOVERSION: "15.0"
             PYTHONTAG: py39
             PYTHONBIN: python3.9
-            DISTRO: focal
+            DISTRO: jammy
           - ODOOVERSION: "15.0"
             PYTHONTAG: py39
             PYTHONBIN: python3.9
@@ -103,6 +87,10 @@ jobs:
             PYTHONTAG: py312
             PYTHONBIN: python3.12
             DISTRO: jammy
+          - ODOOVERSION: "17.0"
+            PYTHONTAG: py312
+            PYTHONBIN: python3.12
+            DISTRO: noble
           - ODOOVERSION: "18.0"
             PYTHONTAG: py312
             PYTHONBIN: python3.12
@@ -123,6 +111,7 @@ jobs:
             ghcr.io/${{ github.repository }}:${{ matrix.ODOOVERSION }}-${{ matrix.PYTHONTAG }}-${{ matrix.DISTRO }}-latest
           cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:${{ matrix.ODOOVERSION }}-${{ matrix.PYTHONTAG }}-${{ matrix.DISTRO }}-latest
           cache-to: type=local,dest=/tmp/.buildx-cache
+          pull: true
           load: true
       - name: Install test pre-requisites
         run: pip install pytest
