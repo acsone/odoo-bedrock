@@ -1,0 +1,55 @@
+ARG DISTRO=noble
+
+FROM docker.io/ubuntu:$DISTRO
+
+LABEL org.opencontainers.image.authors="ACSONE SA/NV"
+
+ARG DISTRO
+ARG PYTHONBIN=python3.12
+
+ENV \
+  ODOO_VERSION=19.0 \
+  ODOO_BIN=odoo \
+  LANG=C.UTF-8 \
+  LC_ALL=C.UTF-8 \
+  DEBIAN_FRONTEND=noninteractive \
+  KWKHTMLTOPDF_SERVER_URL=http://kwkhtmltopdf
+
+
+ADD https://ppa.launchpadcontent.net/deadsnakes/ppa/ubuntu/dists/$DISTRO/Release /tmp/
+RUN --mount=type=bind,source=./install,target=/tmp/install \
+  set -x \
+  && /tmp/install/pre-install.sh \
+  && /tmp/install/tools.sh \
+  && /tmp/install/gosu.sh \
+  && /tmp/install/python3.sh \
+  && /tmp/install/wkhtmltopdf.sh \
+  && /tmp/install/pgdg.sh \
+  && /tmp/install/post-install-clean.sh
+
+# isolate from system python libraries
+RUN set -x \
+  && $PYTHONBIN -m venv /odoo \
+  && /odoo/bin/pip install --no-cache-dir -U pip
+ENV PATH=/odoo/bin:$PATH
+ENV VIRTUAL_ENV=/odoo
+
+# odoo config file
+COPY ./templates/${ODOO_VERSION} /odoo/templates
+ENV OPENERP_SERVER=/etc/odoo.cfg
+ENV ODOO_RC=/etc/odoo.cfg
+
+# odoo data dir (filestore, etc)
+RUN mkdir -p /data/odoo
+VOLUME ["/data/odoo"]
+
+EXPOSE 8069 8072
+
+# root banner
+COPY ./root-banner /etc
+RUN echo "cat /etc/root-banner" >> /root/.bashrc
+
+COPY ./start-entrypoint.d /odoo/start-entrypoint.d
+COPY ./bin/entrypoint.sh /usr/local/bin/entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+CMD ["odoo"]

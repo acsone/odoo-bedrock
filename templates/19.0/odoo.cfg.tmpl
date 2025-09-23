@@ -1,0 +1,56 @@
+[options]
+addons_path = ${ADDONS_PATH}
+data_dir = /data/odoo
+auto_reload = False
+db_template = ${DB_TEMPLATE}
+db_host = ${DB_HOST}
+db_port = ${DB_PORT}
+db_replica_host = ${DB_REPLICA_HOST}
+db_replica_port = ${DB_REPLICA_PORT}
+db_name = ${DB_NAME}
+db_user = ${DB_USER}
+db_password = ${DB_PASSWORD}
+db_sslmode = ${DB_SSLMODE}
+dbfilter = ${DB_FILTER}
+list_db = ${LIST_DB}
+admin_passwd = ${ADMIN_PASSWD}
+db_maxconn = ${DB_MAXCONN}
+db_maxconn_gevent = ${DB_MAXCONN_GEVENT}
+limit_memory_soft = ${LIMIT_MEMORY_SOFT}
+limit_memory_soft_gevent = ${LIMIT_MEMORY_SOFT_GEVENT}
+limit_memory_hard = ${LIMIT_MEMORY_HARD}
+limit_memory_hard_gevent = ${LIMIT_MEMORY_HARD_GEVENT}
+limit_request = ${LIMIT_REQUEST}
+limit_time_cpu = ${LIMIT_TIME_CPU}
+limit_time_real = ${LIMIT_TIME_REAL}
+limit_time_real_cron = ${LIMIT_TIME_REAL_CRON}
+log_handler = ${LOG_HANDLER}
+log_level = ${LOG_LEVEL}
+max_cron_threads = ${MAX_CRON_THREADS}
+workers = ${WORKERS}
+logfile = ${LOGFILE}
+log_db = ${LOG_DB}
+logrotate = True
+syslog = ${SYSLOG}
+running_env = ${RUNNING_ENV}
+without_demo = ${WITHOUT_DEMO}
+server_wide_modules = ${SERVER_WIDE_MODULES}
+; We can activate proxy_mode even if we are not behind a proxy, because
+; it is used only if HTTP_X_FORWARDED_HOST is set in environ
+proxy_mode = True
+; csv_internal_sep = ,
+; debug_mode = False
+; email_from = False
+; http_port = 8069
+; http_enable = True
+; http_interface =
+; gevent_port = 8072
+; osv_memory_age_limit = 1.0
+; osv_memory_count_limit = False
+; smtp_password = False
+; smtp_port = 25
+; smtp_server = localhost
+; smtp_ssl = False
+; smtp_user = False
+unaccent = ${UNACCENT}
+${ADDITIONAL_ODOO_RC}
