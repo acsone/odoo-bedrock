@@ -78,7 +78,9 @@ def test_env_vars():
     if parsed_odoo_version() >= (11, 0):
         env_vars.append(("ODOO_RC", "/etc/odoo.cfg"))
     if parsed_odoo_version() < (19, 0):
-        env_vars.append(("OPENERP_SERVER", "/etc/odoo.cfg"),)
+        env_vars.append(
+            ("OPENERP_SERVER", "/etc/odoo.cfg"),
+        )
     cmd = []
     expected = []
     for key, value in env_vars:
