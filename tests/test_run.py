@@ -61,7 +61,6 @@ def test_data_dirs_created():
 def test_env_vars():
     env_vars = [
         ("ODOO_VERSION", odoo_version()),
-        ("OPENERP_SERVER", "/etc/odoo.cfg"),
         ("KWKHTMLTOPDF_SERVER_URL", "http://kwkhtmltopdf"),
         ("LANG", "C.UTF-8"),
         ("LC_ALL", "C.UTF-8"),
@@ -78,6 +77,10 @@ def test_env_vars():
         env_vars.append(("ODOO_BIN", "odoo"))
     if parsed_odoo_version() >= (11, 0):
         env_vars.append(("ODOO_RC", "/etc/odoo.cfg"))
+    if parsed_odoo_version() < (19, 0):
+        env_vars.append(
+            ("OPENERP_SERVER", "/etc/odoo.cfg"),
+        )
     cmd = []
     expected = []
     for key, value in env_vars:
