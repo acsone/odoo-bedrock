@@ -8,7 +8,10 @@ declare -x DB_NAME="${DB_NAME:-}"
 declare -x DB_USER="${DB_USER:-}"
 declare -x DB_PASSWORD="${DB_PASSWORD:-}"
 declare -x DB_SSLMODE="${DB_SSLMODE:-prefer}"
-declare -x DB_FILTER="${DB_FILTER:-^(${DB_NAME//,/|})$}"
+declare -x DB_FILTER="${DB_FILTER:-}"
+if [ -z "${DB_FILTER}" ] && [ -n "${DB_NAME}" ]; then
+    declare -x DB_FILTER="^(${DB_NAME//,/|})$"
+fi
 declare -x LIST_DB="${LIST_DB:-False}"
 declare -x ADMIN_PASSWD="${ADMIN_PASSWD:-}"
 declare -x DB_MAXCONN="${DB_MAXCONN:-64}"
