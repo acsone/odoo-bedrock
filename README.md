@@ -93,6 +93,7 @@ Odoo options:
 - `SERVER_WIDE_MODULES` (\>=10)
 - `SYSLOG`
 - `UNACCENT`
+- `WITH_DEMO` (\>=19)
 - `WITHOUT_DEMO`
 - `WORKERS`
 

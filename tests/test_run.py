@@ -71,6 +71,14 @@ def test_env_vars():
         ("PGPORT", "5432"),
         ("PGDATABASE", "odoodb"),
     ]
+    if parsed_odoo_version() < (19, 0):
+        env_vars.append(
+            ("WITHOUT_DEMO", "True"),
+        )
+    else:
+        env_vars.append(
+            ("WITH_DEMO", "False"),
+        )
     if parsed_odoo_version() < (10, 0):
         env_vars.append(("ODOO_BIN", "openerp-server"))
     else:
@@ -88,6 +96,22 @@ def test_env_vars():
         expected.append(f"{key}={value}")
     result = compose_run(["bash", "-c", "; ".join(cmd)])
     assert "\n".join(expected) in result.stdout
+
+
+@pytest.mark.skipif(
+    parsed_odoo_version() < (19, 0),
+    reason="WITH_DEMO not supported",
+)
+def test_without_demo_backward_compatibility():
+    result = compose_run(
+        ["bash", "-c", "echo WITH_DEMO=$WITH_DEMO"], env={"WITHOUT_DEMO": "True"}
+    )
+    print(result.stdout)
+    assert "WITH_DEMO=False" in result.stdout
+    result = compose_run(
+        ["bash", "-c", "echo WITH_DEMO=$WITH_DEMO"], env={"WITHOUT_DEMO": "False"}
+    )
+    assert "WITH_DEMO=True" in result.stdout
 
 
 def test_run_entrypoints_default():
@@ -158,9 +182,12 @@ def test_odoo_cfg_env_vars():
         "SERVER_WIDE_MODULES",
         "SYSLOG",
         "UNACCENT",
-        "WITHOUT_DEMO",
         "WORKERS",
     }
+    if parsed_odoo_version() < (19, 0):
+        env_vars.add("WITHOUT_DEMO")
+    else:
+        env_vars.add("WITH_DEMO")
     env = {}
     for env_var in env_vars:
         env[env_var] = f"*{env_var}*"
