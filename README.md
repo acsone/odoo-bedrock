@@ -101,7 +101,18 @@ Other variables that populate `$ODOO_RC`:
 
 - `RUNNING_ENV`: sets `options.running_env` for use by the [OCA
   server_environment](https://github.com/OCA/server-env) module.
+
+> [!WARNING]
+> Starting with 19, the `running_env` option is not set in `$ODOO_RC` anymore
+> because it causes an Odoo warning, and is redundant with the environment
+> variable that is supported natively by the `server_environment` module`.
+
 - `ADDITIONAL_ODOO_RC`: is appended verbatim a the end of `$ODOO_RC`.
+
+> [!TIP]
+> In recent versions of the `server_environment` modules, the `SERVER_ENV_CONFIG`
+> and `SERVER_ENV_CONFIG_SECRET` environment variables are supported, so they are
+> a better alternative to `ADDITIONAL_ODOO_RC`.
 
 The following environment variables are processed by the entrypoint, if
 the `psql` client is installed (which is not the case by default):
