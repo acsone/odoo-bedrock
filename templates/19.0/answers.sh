@@ -29,7 +29,20 @@ declare -x LOGFILE="${LOGFILE:-None}"
 declare -x LOG_DB="${LOG_DB:-False}"
 declare -x SYSLOG="${SYSLOG:-False}"
 declare -x RUNNING_ENV="${RUNNING_ENV:-dev}"
-declare -x WITHOUT_DEMO="${WITHOUT_DEMO:-True}"
+if [ ! -z "${WITH_DEMO:-}" ]; then
+  declare -x WITH_DEMO="${WITH_DEMO}"
+elif [ ! -z "${WITHOUT_DEMO:-}" ]; then
+  # Fallback to WITHOUT_DEMO
+  # But inversing the logic
+  if [ "${WITHOUT_DEMO}" == "False" ]; then
+    declare -x WITH_DEMO="True"
+  else
+    declare -x WITH_DEMO="False"
+  fi
+else
+  # nothing is set -> Default value
+  declare -x WITH_DEMO="False"
+fi
 declare -x SERVER_WIDE_MODULES="${SERVER_WIDE_MODULES:-}"
 declare -x UNACCENT="${UNACCENT:-False}"
 declare -x ADDITIONAL_ODOO_RC="${ADDITIONAL_ODOO_RC:-}"
