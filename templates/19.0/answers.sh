@@ -26,7 +26,7 @@ declare -x LOG_LEVEL="${LOG_LEVEL:-info}"
 declare -x MAX_CRON_THREADS="${MAX_CRON_THREADS:-2}"
 declare -x WORKERS="${WORKERS:-4}"
 declare -x LOGFILE="${LOGFILE:-None}"
-declare -x LOG_DB="${LOG_DB:-False}"
+declare -x LOG_DB="${LOG_DB:-}"
 declare -x SYSLOG="${SYSLOG:-False}"
 declare -x RUNNING_ENV="${RUNNING_ENV:-dev}"
 if [ ! -z "${WITH_DEMO:-}" ]; then
