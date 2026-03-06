@@ -63,6 +63,10 @@ jobs:
             PYTHONTAG: py39
             PYTHONBIN: python3.9
             DISTRO: jammy
+          - ODOOVERSION: "15.0"
+            PYTHONTAG: py310
+            PYTHONBIN: python3.10
+            DISTRO: noble
           - ODOOVERSION: "16.0"
             PYTHONTAG: py39
             PYTHONBIN: python3.9
