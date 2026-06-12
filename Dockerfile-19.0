@@ -1,5 +1,12 @@
 ARG DISTRO=noble
 
+FROM golang:1.26 AS kwkhtmltopdf_client
+
+ADD https://github.com/acsone/kwkhtmltopdf.git#master /build
+WORKDIR /build
+RUN go build -o ./wkhtmltopdf client/go/pdf/kwkhtmltopdf_client.go
+RUN go build -o ./wkhtmltoimage client/go/image/kwkhtmltoimage_client.go
+
 FROM docker.io/ubuntu:$DISTRO
 
 LABEL org.opencontainers.image.authors="ACSONE SA/NV"
@@ -15,6 +22,7 @@ ENV \
   DEBIAN_FRONTEND=noninteractive \
   KWKHTMLTOPDF_SERVER_URL=http://kwkhtmltopdf
 
+COPY --from=kwkhtmltopdf_client /build/wkhtmltopdf /build/wkhtmltoimage /usr/local/bin/
 
 ADD https://ppa.launchpadcontent.net/deadsnakes/ppa/ubuntu/dists/$DISTRO/Release /tmp/
 RUN --mount=type=bind,source=./install,target=/tmp/install \
@@ -23,7 +31,6 @@ RUN --mount=type=bind,source=./install,target=/tmp/install \
   && /tmp/install/tools.sh \
   && /tmp/install/gosu.sh \
   && /tmp/install/python3.sh \
-  && /tmp/install/wkhtmltopdf.sh \
   && /tmp/install/pgdg.sh \
   && /tmp/install/post-install-clean.sh
 
