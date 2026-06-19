@@ -9,6 +9,7 @@ ARG DISTRO=jammy
 FROM $IMAGE:$ODOOVERSION-$PYTHONTAG-$DISTRO-latest
 
 RUN apt-get update && apt-get install -y postgresql-client --no-install-recommends
+RUN pip install psycopg2-binary
 
 # Fake odoo command in PATH
 RUN echo "#!/bin/bash\necho running odoo UID=\$(id -u)\n" > /odoo/bin/odoo \
