@@ -1,0 +1,54 @@
+declare -x ADDONS_PATH="${ADDONS_PATH:-}"
+declare -x DB_TEMPLATE="${DB_TEMPLATE:-template1}"
+declare -x DB_HOST="${DB_HOST:-}"
+declare -x DB_PORT="${DB_PORT:-5432}"
+declare -x DB_REPLICA_HOST="${DB_REPLICA_HOST:-None}"
+declare -x DB_REPLICA_PORT="${DB_REPLICA_PORT:-None}"
+declare -x DB_NAME="${DB_NAME:-}"
+declare -x DB_USER="${DB_USER:-}"
+declare -x DB_PASSWORD="${DB_PASSWORD:-}"
+declare -x DB_SSLMODE="${DB_SSLMODE:-prefer}"
+declare -x DB_FILTER="${DB_FILTER:-^(${DB_NAME//,/|})$}"
+declare -x LIST_DB="${LIST_DB:-False}"
+declare -x ADMIN_PASSWD="${ADMIN_PASSWD:-}"
+declare -x DB_MAXCONN="${DB_MAXCONN:-64}"
+declare -x DB_MAXCONN_GEVENT="${DB_MAXCONN_GEVENT:-None}"
+declare -x LIMIT_MEMORY_SOFT="${LIMIT_MEMORY_SOFT:-2147483648}"
+declare -x LIMIT_MEMORY_SOFT_GEVENT="${LIMIT_MEMORY_SOFT_GEVENT:-None}"
+declare -x LIMIT_MEMORY_HARD="${LIMIT_MEMORY_HARD:-2684354560}"
+declare -x LIMIT_MEMORY_HARD_GEVENT="${LIMIT_MEMORY_HARD_GEVENT:-None}"
+declare -x LIMIT_REQUEST="${LIMIT_REQUEST:-8192}"
+declare -x LIMIT_TIME_CPU="${LIMIT_TIME_CPU:-60}"
+declare -x LIMIT_TIME_REAL="${LIMIT_TIME_REAL:-120}"
+declare -x LIMIT_TIME_REAL_CRON="${LIMIT_TIME_REAL_CRON:-120}"
+declare -x IMPORT_FILE_MAXBYTES="${IMPORT_FILE_MAXBYTES:-10485760}"
+declare -x LOG_HANDLER="${LOG_HANDLER:-':INFO'}"
+declare -x LOG_LEVEL="${LOG_LEVEL:-info}"
+declare -x MAX_CRON_THREADS="${MAX_CRON_THREADS:-2}"
+declare -x WORKERS="${WORKERS:-4}"
+declare -x LOGFILE="${LOGFILE:-None}"
+declare -x LOG_DB="${LOG_DB:-}"
+declare -x SYSLOG="${SYSLOG:-False}"
+declare -x RUNNING_ENV="${RUNNING_ENV:-dev}"
+if [ ! -z "${WITH_DEMO:-}" ]; then
+  declare -x WITH_DEMO="${WITH_DEMO}"
+elif [ ! -z "${WITHOUT_DEMO:-}" ]; then
+  # Fallback to WITHOUT_DEMO
+  # But inversing the logic
+  if [ "${WITHOUT_DEMO}" == "False" ]; then
+    declare -x WITH_DEMO="True"
+  else
+    declare -x WITH_DEMO="False"
+  fi
+else
+  # nothing is set -> Default value
+  declare -x WITH_DEMO="False"
+fi
+declare -x SERVER_WIDE_MODULES="${SERVER_WIDE_MODULES:-}"
+declare -x UNACCENT="${UNACCENT:-False}"
+declare -x ADDITIONAL_ODOO_RC="${ADDITIONAL_ODOO_RC:-}"
+declare -x PGHOST=${DB_HOST}
+declare -x PGPORT=${DB_PORT:-5432}
+declare -x PGUSER=${DB_USER}
+declare -x PGPASSWORD=${DB_PASSWORD}
+declare -x PGDATABASE=${DB_NAME}
