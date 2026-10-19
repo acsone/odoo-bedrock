@@ -10,6 +10,8 @@ elif [ "${UBUNTU_CODENAME}" == "jammy" ] ; then
     SYSTEM_PYTHON=python3.10
 elif [ "${UBUNTU_CODENAME}" == "noble" ] ; then
     SYSTEM_PYTHON=python3.12
+elif [ "${UBUNTU_CODENAME}" == "resolute" ] ; then
+    SYSTEM_PYTHON=python3.14
 else
     echo "Unknown UBUNTU_CODENAME '${UBUNTU_CODENAME}'"
     exit 1

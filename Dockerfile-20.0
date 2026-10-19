@@ -1,11 +1,11 @@
-ARG DISTRO=noble
+ARG DISTRO=resolute
 
 FROM docker.io/ubuntu:$DISTRO
 
 LABEL org.opencontainers.image.authors="ACSONE SA/NV"
 
 ARG DISTRO
-ARG PYTHONBIN=python3.12
+ARG PYTHONBIN=python3.14
 
 ENV \
   ODOO_VERSION=20.0 \

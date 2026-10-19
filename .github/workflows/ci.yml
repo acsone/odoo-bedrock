@@ -127,6 +127,14 @@ jobs:
             PYTHONTAG: py313
             PYTHONBIN: python3.13
             DISTRO: noble
+          - ODOOVERSION: "20.0"
+            PYTHONTAG: py312
+            PYTHONBIN: python3.12
+            DISTRO: resolute
+          - ODOOVERSION: "20.0"
+            PYTHONTAG: py314
+            PYTHONBIN: python3.14
+            DISTRO: resolute
     steps:
       - uses: actions/checkout@v4
       - name: Set up Docker Buildx
