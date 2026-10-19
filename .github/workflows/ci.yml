@@ -136,7 +136,7 @@ jobs:
             PYTHONBIN: python3.14
             DISTRO: resolute
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       - name: Build image
