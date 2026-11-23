@@ -23,6 +23,7 @@ RUN --mount=type=bind,source=./install,target=/tmp/install \
   && /tmp/install/tools.sh \
   && /tmp/install/gosu.sh \
   && /tmp/install/python3.sh \
+  && /tmp/install/paper_muncher.sh \
   && /tmp/install/wkhtmltopdf.sh \
   && /tmp/install/pgdg.sh \
   && /tmp/install/post-install-clean.sh
