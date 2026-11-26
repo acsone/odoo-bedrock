@@ -84,6 +84,10 @@ jobs:
             PYTHONTAG: py312
             PYTHONBIN: python3.12
             DISTRO: jammy
+          - ODOOVERSION: "16.0"
+            PYTHONTAG: py312
+            PYTHONBIN: python3.12
+            DISTRO: noble
           # 16.0 noble WITH python 3.13 is not officially supported by
           # Odoo. If you need it, you can take a look at the PR
           # https://github.com/OCA/OCB/pull/1321 on the OCB repo 
